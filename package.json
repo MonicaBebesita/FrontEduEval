@@ -22,6 +22,7 @@
     "@angular/ssr": "^19.2.9",
     "bootstrap": "^5.3.6",
     "bootstrap-icons": "^1.13.1",
+    "edu-eval-front": "file:",
     "express": "^4.18.2",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
