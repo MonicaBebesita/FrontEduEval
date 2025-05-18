@@ -1,0 +1,19 @@
+/* sidebar.component.scss */
+.sidebar {
+  width: 250px;
+  height: 100vh;
+  background-color: #b0b0b0;
+  padding: 1rem;
+  color: #222;
+}
+
+.nav-link {
+  color: #222;
+  transition: background 0.2s;
+
+  &.active,
+  &:hover {
+    background-color: #dcdcdc;
+    border-radius: 5px;
+  }
+}
