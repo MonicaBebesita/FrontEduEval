@@ -15,5 +15,5 @@ import { RouterModule } from '@angular/router';
 })
 export class ButtonComponent {
   @Input() btnClass = 'btn btn-primary';
-  @Input() routerLink?: any[]; // permite navegación
+  @Input() routerLink?: any[]; 
 }

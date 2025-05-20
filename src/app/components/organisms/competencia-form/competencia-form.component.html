@@ -1,0 +1,46 @@
+<fieldset class="border p-3 rounded">
+  <legend class="float-none w-auto px-3">Nueva competencia y RA</legend>
+  <form (ngSubmit)="agregar()">
+    <div class="row mb-3">
+      <div class="col-md-6">
+        <app-input
+          label="Nombre Competencia"
+          [(ngModel)]="nombre"
+          name="nombre"
+        />
+      </div>
+      <div class="col-md-6">
+        <app-input
+          label="Descripción Competencia"
+          [(ngModel)]="descripcion"
+          name="descripcion"
+        />
+      </div>
+    </div>
+
+    <div class="row mb-3">
+      <div class="col-md-6">
+        <app-input
+          label="Descripción del RA"
+          [(ngModel)]="descripcionRA"
+          name="descripcionRA"
+        />
+      </div>
+      <div class="col-md-6">
+        <app-select
+          label="Nivel"
+          [(ngModel)]="nivel"
+          name="nivel"
+          [options]="niveles"
+        />
+      </div>
+    </div>
+
+    <app-button
+      btnClass="btn btn-outline-primary"
+      [routerLink]="['/programa/crear']"
+    >
+      Agregar
+    </app-button>
+  </form>
+</fieldset>
