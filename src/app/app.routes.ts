@@ -1,7 +1,8 @@
 import { Routes } from '@angular/router';
-import { HomeComponent } from './competencia/pages/home/home.component';
+import { GestionarCompetenciasComponent } from './pages/programa/gestionar-competencias/gestionar-competencias.component';
 
 export const routes: Routes = [
-  { path: 'programa', component: HomeComponent },
+  { path: 'programa', component: GestionarCompetenciasComponent },
   { path: '', redirectTo: 'programa', pathMatch: 'full' },
 ];
+
