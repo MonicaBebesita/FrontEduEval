@@ -8,7 +8,7 @@ import { IconComponent } from "../../atoms/icon/icon.component";
   standalone: true,
   imports: [CommonModule, RouterModule, IconComponent],
   template: `
-    <a class="nav-link d-flex align-items-center" [routerLink]="link" routerLinkActive="active">
+    <a class="nav-link d-flex align-items-center text-dark" [routerLink]="link" routerLinkActive="active">
       <app-icon [name]="icon" class="me-2"></app-icon> {{ label }}
     </a>
   `
@@ -17,4 +17,5 @@ export class SidebarNavItemComponent {
   @Input() link = '';
   @Input() icon = '';
   @Input() label = '';
+  @Input() route!: string;//agregado para mejoras visuales
 }

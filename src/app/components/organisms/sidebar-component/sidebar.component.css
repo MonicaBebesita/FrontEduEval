@@ -1,0 +1,29 @@
+.sidebar {
+  width: 300px;
+  height: 100vh;
+  background-color: #f8f9fa;
+  border-right: 1px solid #dee2e6;
+  padding: 2rem;
+  box-shadow: 2px 0 8px rgba(0,0,0,0.1);
+  display: flex;
+  flex-direction: column;
+}
+
+.nav {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.logout-item {
+  margin-top: auto !important;
+}
+
+app-sidebar-nav-item:hover {
+  background-color: salmon;
+  border-radius: 0.25rem;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
+}
