@@ -10,7 +10,7 @@ import { CompetenciasTableComponent } from '../../organisms/competencias-table/c
   template: `
     <div class="container mt-4">
       <div class="d-flex justify-content-between align-items-center mb-3">
-        <h2>Competencias del Programa</h2>
+        <h2>{{titulo}}</h2>
         <app-icon-button icon="plus-lg" label="Crear Competencia" [routerLink]="['/programa/crear']" />
       </div>
 
@@ -22,6 +22,7 @@ import { CompetenciasTableComponent } from '../../organisms/competencias-table/c
   `
 })
 export class GestionarCompetenciasTemplateComponent {
+  @Input() titulo: string = '';
   @Input() competencias: any[] = [];
   @Output() eliminarCompetencia = new EventEmitter<number>();
 }

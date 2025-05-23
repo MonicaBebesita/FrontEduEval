@@ -1,5 +1,6 @@
 import { Routes } from '@angular/router';
-import { GestionarCompetenciasComponent } from './pages/programa/gestionar-competencias/gestionar-competencias.component';
+import { GestionarCompetenciasProgramaComponent } from './pages/programa/gestionar-competencias/gestionar-competencias-programa.component';
+import { GestionarCompetenciasAsignaturaComponent } from './pages/programa/gestionar-competencias/gestionar-competencias-asignatura.component';
 
 export const routes: Routes = [
   {
@@ -7,23 +8,42 @@ export const routes: Routes = [
     children: [
       {
         path: '',
-        component: GestionarCompetenciasComponent
+        component: GestionarCompetenciasProgramaComponent,
       },
       {
         path: 'crear',
         loadComponent: () =>
-          import('./pages/programa/crear-competencia/crear-competencia.component').then(m => m.CrearCompetenciaComponent)
+          import(
+            './pages/programa/crear-competencia/crear-competencia.component'
+          ).then((m) => m.CrearCompetenciaComponent),
       },
-     
-    ]
+    ],
+  },
+  {
+    path: 'asignatura',
+    children: [
+      {
+        path: '',
+        component: GestionarCompetenciasAsignaturaComponent,
+      },
+      /*
+      {
+        path: 'crear',
+        loadComponent: () =>
+          import(
+            './pages/asignatura/crear-competencia-asignatura/crear-competencia-asignatura.component'
+          ).then((m) => m.CrearCompetenciaAsignaturaComponent),
+      },
+      */
+    ],
   },
   {
     path: '',
     redirectTo: '/programa',
-    pathMatch: 'full'
+    pathMatch: 'full',
   },
   {
     path: '**',
-    redirectTo: '/programa'
-  }
+    redirectTo: '/programa',
+  },
 ];

@@ -4,17 +4,18 @@ import { GestionarCompetenciasTemplateComponent } from '../../../components/temp
 
 @Component({
   standalone: true,
-  selector: 'app-gestionar-competencias',
+  selector: 'app-gestionar-competencias-programa',
   imports: [CommonModule, GestionarCompetenciasTemplateComponent],
   template: `
     <app-gestionar-competencias-template
+      [titulo]="'Competencias del Programa'"
       [competencias]="competencias"
       (eliminarCompetencia)="eliminarCompetencia($event)"
     >
     </app-gestionar-competencias-template>
   `,
 })
-export class GestionarCompetenciasComponent {
+export class GestionarCompetenciasProgramaComponent {
   competencias = [
     { id: 1, descripcion: 'Resolver problemas', nivel: 'avanzado' },
     { id: 2, descripcion: 'Pensamiento crítico', nivel: 'básico' },
