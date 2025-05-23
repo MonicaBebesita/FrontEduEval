@@ -1,6 +1,7 @@
 import { Routes } from '@angular/router';
 import { GestionarCompetenciasProgramaComponent } from './pages/programa/gestionar-competencias-programa.component';
 import { GestionarCompetenciasAsignaturaComponent } from './pages/asignatura/gestionar-competencias-asignatura.component';
+import { AsignaturasPageComponent } from './pages/asignatura/asignaturas.component';
 
 export const routes: Routes = [
   {
@@ -21,14 +22,23 @@ export const routes: Routes = [
   },
   {
     path: 'asignatura',
-    component: GestionarCompetenciasAsignaturaComponent,
-  },
-  {
-    path: 'asignatura/ra/:id',
-    loadComponent: () =>
-      import('./pages/asignatura/agregar-ra.component').then(
-        (m) => m.AgregarRaComponent
-      ),
+    children: [
+      {
+        path: '',
+        component: AsignaturasPageComponent, // muestra las tarjetas
+      },
+      {
+        path: ':id', // cuando haces clic en una asignatura
+        component: GestionarCompetenciasAsignaturaComponent,
+      },
+      {
+        path: 'ra/:id',
+        loadComponent: () =>
+          import('./pages/asignatura/agregar-ra.component').then(
+            (m) => m.AgregarRaComponent
+          ),
+      },
+    ],
   },
   {
     path: '',
