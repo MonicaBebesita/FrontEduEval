@@ -6,7 +6,6 @@
 
   <nav class="nav flex-column">
     <ng-container *ngFor="let item of navItems; let i = index">
-      <!-- Para logout detectamos y le ponemos clase para que quede abajo -->
       <app-sidebar-nav-item
         [icon]="item.icon"
         [label]="item.label"
