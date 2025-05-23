@@ -12,7 +12,7 @@ import { RouterModule } from '@angular/router';
       class="card text-white mb-3"
       [style.backgroundColor]="color"
       style="cursor: pointer"
-      [routerLink]="['/asignatura', id]"
+      [routerLink]="[ruta, id]"
     >
       <div class="card-body">
         <h5 class="card-title">{{ nombre }}</h5>
@@ -25,5 +25,6 @@ export class AsignaturaCardComponent {
   @Input() id = '';
   @Input() nombre = '';
   @Input() descripcion = '';
-  @Input() color = '#007bff'; // Azul por defecto
+  @Input() color = '#007bff';
+  @Input() ruta = '/asignatura'; // Valor por defecto
 }

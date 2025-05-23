@@ -1,7 +1,9 @@
 import { Routes } from '@angular/router';
 import { GestionarCompetenciasProgramaComponent } from './pages/programa/gestionar-competencias-programa.component';
 import { GestionarCompetenciasAsignaturaComponent } from './pages/asignatura/gestionar-competencias-asignatura.component';
-import { AsignaturasPageComponent } from './pages/asignatura/asignaturas.component';
+import { AsignaturasPageComponentCA } from './pages/asignatura/asignaturas.componentCA';
+import { AsignaturasPageComponentRUB } from './pages/asignatura/asignaturas.componentRUB';
+import { GestionarRubricasComponent } from './pages/asignatura/rubrica/gestionar-rubricas/gestionar-rubricas.component';
 
 export const routes: Routes = [
   {
@@ -25,7 +27,7 @@ export const routes: Routes = [
     children: [
       {
         path: '',
-        component: AsignaturasPageComponent, // muestra las tarjetas
+        component: AsignaturasPageComponentCA, // muestra las tarjetas
       },
       {
         path: ':id', // cuando haces clic en una asignatura
@@ -40,6 +42,32 @@ export const routes: Routes = [
       },
     ],
   },
+
+{
+    path: 'rubrica',
+    children: [
+      {
+        path: '',
+        component: AsignaturasPageComponentRUB, // muestra las tarjetas
+      },
+      {
+        path: ':id', // cuando haces clic en una asignatura
+        component: GestionarRubricasComponent,
+      },
+      {
+        path: 'ra/:id',
+        loadComponent: () =>
+          import('./pages/asignatura/agregar-ra.component').then(
+            (m) => m.AgregarRaComponent
+          ),
+      },
+    ],
+  },
+
+
+
+
+
   {
     path: '',
     redirectTo: '/asignatura',

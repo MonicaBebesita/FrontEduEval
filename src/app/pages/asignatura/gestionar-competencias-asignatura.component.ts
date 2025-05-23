@@ -12,7 +12,8 @@ import { GestionarCompetenciasTemplateComponent } from '../../components/templat
       [titulo]="'Competencias de la Asignatura: ' + asignaturaId"
       [rutaRubrica]="'asignatura/ra'"
       [competencias]="competencias"
-      (eliminarCompetencia)="eliminarCompetencia($event)">
+      (eliminarCompetencia)="eliminarCompetencia($event)"
+    >
     </app-gestionar-competencias-template>
   `,
 })
@@ -20,19 +21,46 @@ export class GestionarCompetenciasAsignaturaComponent implements OnInit {
   private route = inject(ActivatedRoute);
 
   asignaturaId: string = '';
-  competencias: { id: number; descripcion: string; nivel: string; asignaturaId: string }[] = [];
+  competencias: {
+    id: number;
+    descripcion: string;
+    nivel: string;
+    asignaturaId: string;
+  }[] = [];
 
   // Simulación de datos generales
   todasLasCompetencias = [
-    { id: 1, descripcion: 'Resolver ecuaciones', nivel: 'basico', asignaturaId: 'matematicas' },
-    { id: 2, descripcion: 'Analizar funciones', nivel: 'intermedio', asignaturaId: 'matematicas' },
-    { id: 3, descripcion: 'Explicar la fotosíntesis', nivel: 'avanzado', asignaturaId: 'ciencias' },
-    { id: 4, descripcion: 'Interpretar mapas', nivel: 'basico', asignaturaId: 'geografia' },
+    {
+      id: 1,
+      descripcion: 'Resolver ecuaciones',
+      nivel: 'basico',
+      asignaturaId: 'matematicas',
+    },
+    {
+      id: 2,
+      descripcion: 'Analizar funciones',
+      nivel: 'intermedio',
+      asignaturaId: 'matematicas',
+    },
+    {
+      id: 3,
+      descripcion: 'Explicar la fotosíntesis',
+      nivel: 'avanzado',
+      asignaturaId: 'ciencias',
+    },
+    {
+      id: 4,
+      descripcion: 'Interpretar mapas',
+      nivel: 'basico',
+      asignaturaId: 'geografia',
+    },
   ];
 
   ngOnInit() {
-    this.asignaturaId = this.route.snapshot.paramMap.get('id') || '';
-    this.cargarCompetencias();
+    this.route.paramMap.subscribe((params) => {
+      this.asignaturaId = params.get('id') || '';
+      this.cargarCompetencias();
+    });
   }
 
   cargarCompetencias() {

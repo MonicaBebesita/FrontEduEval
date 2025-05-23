@@ -4,17 +4,20 @@ import { CommonModule } from '@angular/common';
 import { AsignaturasListComponent } from '../../organisms/asignaturas-list/asignaturas-list.component';
 
 @Component({
-  selector: 'app-asignaturas-template',
+  selector: 'app-asignaturas-templateRUB',
   standalone: true,
   imports: [CommonModule, AsignaturasListComponent],
   template: `
     <div class="container mt-4">
-      <h2 class="mb-4">Asignaturas</h2>
-      <app-asignaturas-list [asignaturas]="asignaturas"></app-asignaturas-list>
+      <h2 class="mb-4">Gestión de Rubricas</h2>
+      <app-asignaturas-list
+        [asignaturas]="asignaturas"
+        rutaDestino="/rubrica"
+      ></app-asignaturas-list>
     </div>
   `,
 })
-export class AsignaturasTemplateComponent {
+export class AsignaturasTemplateComponentRUB {
   asignaturas = [
     {
       id: 'matematicas',

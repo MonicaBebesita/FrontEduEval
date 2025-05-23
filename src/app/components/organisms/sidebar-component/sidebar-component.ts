@@ -37,15 +37,23 @@ import { SidebarNavItemComponent } from '../../molecules/sidebar-nav-item-compon
   selector: 'app-sidebar',
   imports: [CommonModule, SidebarNavItemComponent, IconComponent],
   templateUrl: './sidebar.component.html',
-  styleUrls: ['./sidebar.component.css'],  
+  styleUrls: ['./sidebar.component.css'],
 })
 export class SidebarComponent {
   navItems = [
     { icon: 'person', label: 'Inicio', route: '/inicio' },
-    { icon: 'journal-text', label: 'Gestionar Rúbricas', route: '/rubricas' },
-    { icon: 'check2-square', label: 'Gestionar Competencias', route: '/competencias' },
+    { icon: 'journal-text', label: 'Gestionar Rúbricas', route: '/rubrica' },
+    {
+      icon: 'check2-square',
+      label: 'Gestionar Competencias',
+      route: '/asignatura',
+    },
     { icon: 'bar-chart', label: 'Evaluar', route: '/evaluar' },
-    { icon: 'power', label: 'Cerrar Sesión', route: '/logout', extraClass: 'mt-auto' },
+    {
+      icon: 'power',
+      label: 'Cerrar Sesión',
+      route: '/logout',
+      extraClass: 'mt-auto',
+    },
   ];
 }
-
