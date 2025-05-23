@@ -1,22 +1,33 @@
 <div class="text-center">
-      <button class="btn btn-outline-info btn-sm me-1"
-              [routerLink]="['/programa/ver', id]">
-        <app-icon name="eye"></app-icon>
-      </button>
+  <a
+    class="btn btn-outline-info btn-sm me-1"
+    [routerLink]="['/programa/ver', id]"
+    title="Ver programa"
+  >
+    <app-icon name="eye"></app-icon>
+  </a>
 
-      <button class="btn btn-outline-warning btn-sm me-1"
-              [routerLink]="['/programa/editar', id]">
-        <app-icon name="pencil"></app-icon>
-      </button>
+  <a
+    class="btn btn-outline-warning btn-sm me-1"
+    [routerLink]="['/programa/editar', id]"
+    title="Editar programa"
+  >
+    <app-icon name="pencil"></app-icon>
+  </a>
 
-      <button class="btn btn-outline-success btn-sm me-1"
-              [routerLink]="['/programa/ra', id]"
-              title="Agregar resultado de aprendizaje">
-        RA
-      </button>
+  <a
+    class="btn btn-outline-success btn-sm me-1"
+    [routerLink]="['/asignatura/ra', id]"
+    title="Agregar resultado de aprendizaje"
+  >
+    RA
+  </a>
 
-      <button class="btn btn-outline-danger btn-sm"
-              (click)="onDelete.emit(id)">
-        <app-icon name="trash"></app-icon>
-      </button>
-    </div>
+  <button
+    class="btn btn-outline-danger btn-sm"
+    (click)="onDelete.emit(id)"
+    title="Eliminar"
+  >
+    <app-icon name="trash"></app-icon>
+  </button>
+</div>

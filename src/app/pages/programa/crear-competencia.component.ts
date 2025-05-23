@@ -1,8 +1,9 @@
 import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router, RouterModule } from '@angular/router';
+import { CrearCompetenciaTemplateComponent } from '../../components/templates/crear-competencia-template/crear-competencia-template.component';
 
-import { CrearCompetenciaTemplateComponent } from '../../../components/templates/crear-competencia-template/crear-competencia-template.component';
+
 
 @Component({
   standalone: true,
@@ -26,8 +27,8 @@ export class CrearCompetenciaComponent {
       // Mostrar mensaje de éxito
       alert('Competencia creada exitosamente');
 
-      //  Redirigir a /programa
-      this.router.navigate(['/programa']);
+      //  Redirigir a /asignatura
+      this.router.navigate(['/asignatura']);
     } else {
       //  Mostrar error si algo falla
       alert('Ocurrió un error al crear la competencia');

@@ -1,6 +1,6 @@
 import { Routes } from '@angular/router';
-import { GestionarCompetenciasProgramaComponent } from './pages/programa/gestionar-competencias/gestionar-competencias-programa.component';
-import { GestionarCompetenciasAsignaturaComponent } from './pages/programa/gestionar-competencias/gestionar-competencias-asignatura.component';
+import { GestionarCompetenciasProgramaComponent } from './pages/programa/gestionar-competencias-programa.component';
+import { GestionarCompetenciasAsignaturaComponent } from './pages/asignatura/gestionar-competencias-asignatura.component';
 
 export const routes: Routes = [
   {
@@ -13,37 +13,30 @@ export const routes: Routes = [
       {
         path: 'crear',
         loadComponent: () =>
-          import(
-            './pages/programa/crear-competencia/crear-competencia.component'
-          ).then((m) => m.CrearCompetenciaComponent),
+          import('./pages/programa/crear-competencia.component').then(
+            (m) => m.CrearCompetenciaComponent
+          ),
       },
     ],
   },
   {
     path: 'asignatura',
-    children: [
-      {
-        path: '',
-        component: GestionarCompetenciasAsignaturaComponent,
-      },
-      /*
-      {
-        path: 'crear',
-        loadComponent: () =>
-          import(
-            './pages/asignatura/crear-competencia-asignatura/crear-competencia-asignatura.component'
-          ).then((m) => m.CrearCompetenciaAsignaturaComponent),
-      },
-      */
-    ],
+    component: GestionarCompetenciasAsignaturaComponent,
+  },
+  {
+    path: 'asignatura/ra/:id',
+    loadComponent: () =>
+      import('./pages/asignatura/agregar-ra.component').then(
+        (m) => m.AgregarRaComponent
+      ),
   },
   {
     path: '',
-    redirectTo: '/programa',
+    redirectTo: '/asignatura',
     pathMatch: 'full',
   },
   {
     path: '**',
-    redirectTo: '/programa',
+    redirectTo: '/asignatura',
   },
 ];

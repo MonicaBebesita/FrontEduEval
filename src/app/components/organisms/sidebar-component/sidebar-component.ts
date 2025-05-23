@@ -48,3 +48,4 @@ export class SidebarComponent {
     { icon: 'power', label: 'Cerrar Sesión', route: '/logout', extraClass: 'mt-auto' },
   ];
 }
+

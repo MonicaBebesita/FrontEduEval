@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { GestionarCompetenciasTemplateComponent } from '../../../components/templates/gestionar-competencias-template/gestionar-competencias-template.component';
+import { GestionarCompetenciasTemplateComponent } from '../../components/templates/gestionar-competencias-template/gestionar-competencias-template.component';
 
 @Component({
   standalone: true,
