@@ -34,21 +34,26 @@ import { SidebarNavItemComponent } from '../../molecules/sidebar-nav-item-compon
 
 @Component({
   standalone: true,
-  selector: 'app-sidebar',
+  selector: 'app-sidebar-coordinador',
   imports: [CommonModule, SidebarNavItemComponent, IconComponent],
   templateUrl: './sidebar.component.html',
   styleUrls: ['./sidebar.component.css'],
 })
-export class SidebarComponent {
+export class CoordinadorSidebarComponent {
   navItems = [
-    { icon: 'person', label: 'Inicio', route: '/inicio' },
-    { icon: 'journal-text', label: 'Gestionar Rúbricas', route: '/rubrica' },
+    {
+      icon: 'journal-text',
+      label:
+        'Competencias y Resultados de Aprendizaje del Programa (CP) y (RA)',
+      route: '/programa',
+    },
+
     {
       icon: 'check2-square',
-      label: 'Gestionar Competencias',
-      route: '/asignatura',
+      label: 'Competencias por Asignatura (CA)',
+      route: '/programa/CAasignaturas',
     },
-    { icon: 'bar-chart', label: 'Evaluar', route: '/evaluar' },
+
     {
       icon: 'power',
       label: 'Cerrar Sesión',

@@ -1,19 +1,19 @@
 import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router, RouterModule } from '@angular/router';
-import { CrearCompetenciaTemplateComponent } from '../../components/templates/crear-competencia-template/crear-competencia-template.component';
+import { CrearCompetenciaTemplateComponent } from '../../../components/templates/crear-competencia-template/crear-competencia-template.component';
 
 
 
 @Component({
   standalone: true,
-  selector: 'app-crear-competencia',
+  selector: 'app-crear-competencia-asignatura',
   imports: [CommonModule, CrearCompetenciaTemplateComponent, RouterModule],
   template: `
     <app-crear-competencia-template (crear)="guardarCompetencia($event)" />
   `
 })
-export class CrearCompetenciaComponent {
+export class CrearCompetenciaAsignaturaComponent {
     private router = inject(Router);
   guardarCompetencia(competencia: any) {
     console.log('Competencia creada:', competencia);

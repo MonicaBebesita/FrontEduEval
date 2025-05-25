@@ -20,8 +20,8 @@ import { ActivatedRoute } from '@angular/router';
               <small>Creado: {{ ra.fecha }}</small>
             </div>
             <div>
-              <button class="btn btn-outline-success btn-sm me-2" (click)="anadirCriterio(ra)">
-                <i class="bi bi-plus-circle"></i> Añadir Criterio
+              <button class="btn btn-outline-success btn-sm me-2" (click)="anadirRubrica(ra)">
+                <i class="bi bi-plus-circle"></i> Añadir Rubrica
               </button>
               <button class="btn btn-outline-danger btn-sm" (click)="eliminarRA(ra)">
                 <i class="bi bi-trash"></i> Eliminar RA
@@ -63,7 +63,7 @@ export class GestionarRubricasComponent implements OnInit {
     ];
   }
 
-  anadirCriterio(ra: any) {
+  anadirRubrica(ra: any) {
     alert(`Añadir criterio al RA: ${ra.descripcion}`);
   }
 

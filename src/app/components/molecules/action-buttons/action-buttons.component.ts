@@ -9,12 +9,13 @@ import { RouterModule } from '@angular/router';
 })
 export class ActionButtonsComponent {
   @Input() id!: number;
-  @Input() rutaRubrica!: string;
+  @Input() rutaRA!: string;
+  @Input() rutaEditar!: string;
+  @Input() rutaVer!: string;
   @Output() onDelete = new EventEmitter<number>();
 
-
   ngOnInit() {
-  console.log('Ruta Rubrica:', this.rutaRubrica);
-  console.log('ID:', this.id);
-}
+    //console.log('Ruta Rubrica:', this.rutaRubrica);
+    console.log('ID:', this.id);
+  }
 }

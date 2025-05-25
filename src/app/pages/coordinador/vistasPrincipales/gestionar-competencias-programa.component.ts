@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { GestionarCompetenciasTemplateComponent } from '../../components/templates/gestionar-competencias-template/gestionar-competencias-template.component';
+import { GestionarCompetenciasTemplateComponent } from '../../../components/templates/gestionar-competencias-template/gestionar-competencias-template.component';
 
 @Component({
   standalone: true,
@@ -10,6 +10,10 @@ import { GestionarCompetenciasTemplateComponent } from '../../components/templat
     <app-gestionar-competencias-template
       [titulo]="'Competencias del Programa'"
       [competencias]="competencias"
+      [routerLink]="['/programa/crearCP']"
+      rutaRA="/programa/RAprograma"
+      rutaEditar="/programa/editarCP"
+      rutaVer="/programa/verCP"
       (eliminarCompetencia)="eliminarCompetencia($event)"
     >
     </app-gestionar-competencias-template>

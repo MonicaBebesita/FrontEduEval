@@ -9,7 +9,9 @@ import { ActionButtonsComponent } from '../../molecules/action-buttons/action-bu
   styleUrl: './competencias-table.component.css',
 })
 export class CompetenciasTableComponent {
-  @Input() rutaRubrica!: string
+  @Input() rutaRA!: string;
+  @Input() rutaEditar!: string;
+  @Input() rutaVer!: string;
   @Input() competencias: any[] = [];
   @Output() onDelete = new EventEmitter<number>();
 }

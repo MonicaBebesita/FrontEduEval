@@ -22,5 +22,5 @@ import { AsignaturaCardComponent } from '../../atoms/asignatura-card/asignatura-
 })
 export class AsignaturasListComponent {
   @Input() asignaturas: any[] = [];
-  @Input() rutaDestino = '/asignatura'; // Valor por defecto
+  @Input() rutaDestino!: string 
 }

@@ -14,13 +14,17 @@ import { CompetenciasTableComponent } from '../../organisms/competencias-table/c
         <app-icon-button
           icon="plus-lg"
           label="Crear Competencia"
-          [routerLink]="['/programa/crear']"
+          [routerLink]="routerLink"
         />
       </div>
+      
+
 
       <app-competencias-table
         [competencias]="competencias"
-         [rutaRubrica]="rutaRubrica"
+         [rutaRA]="rutaRA"
+        [rutaEditar]="rutaEditar"
+        [rutaVer]="rutaVer"
         (onDelete)="eliminarCompetencia.emit($event)"
       >
       </app-competencias-table>
@@ -29,7 +33,10 @@ import { CompetenciasTableComponent } from '../../organisms/competencias-table/c
 })
 export class GestionarCompetenciasTemplateComponent {
   @Input() titulo: string = '';
-  @Input() rutaRubrica!: string;
+  @Input() rutaRA!: string;
+  @Input() rutaEditar!: string;
+    @Input() rutaVer!: string;
+   @Input() routerLink?: any[];
   @Input() competencias: any[] = [];
   @Output() eliminarCompetencia = new EventEmitter<number>();
 }

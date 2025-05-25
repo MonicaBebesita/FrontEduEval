@@ -1,7 +1,7 @@
 <div class="text-center">
   <a
     class="btn btn-outline-info btn-sm me-1"
-    [routerLink]="['/programa/ver', id]"
+    [routerLink]="[rutaVer, id]"
     title="Ver programa"
   >
     <app-icon name="eye"></app-icon>
@@ -9,7 +9,7 @@
 
   <a
     class="btn btn-outline-warning btn-sm me-1"
-    [routerLink]="['/programa/editar', id]"
+    [routerLink]="[rutaEditar, id]"
     title="Editar programa"
   >
     <app-icon name="pencil"></app-icon>
@@ -17,7 +17,7 @@
 
   <a
     class="btn btn-outline-success btn-sm me-1"
-    [routerLink]="['/asignatura/ra', id]"
+    [routerLink]="[rutaRA, id]"
     title="Agregar resultado de aprendizaje"
   >
     RA

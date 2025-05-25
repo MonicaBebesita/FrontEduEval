@@ -1,23 +1,26 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
-import { GestionarCompetenciasTemplateComponent } from '../../components/templates/gestionar-competencias-template/gestionar-competencias-template.component';
+import { GestionarCompetenciasTemplateComponent } from '../../../components/templates/gestionar-competencias-template/gestionar-competencias-template.component';
 
 @Component({
   standalone: true,
-  selector: 'app-gestionar-competencias-asignatura',
+  selector: 'competencias-asignatura',
   imports: [CommonModule, GestionarCompetenciasTemplateComponent],
   template: `
     <app-gestionar-competencias-template
-      [titulo]="'Competencias de la Asignatura: ' + asignaturaId"
-      [rutaRA]="'asignatura/ra'"
+      [titulo]="'Competencias de la Asignatura en el Programa: ' + asignaturaId"
+      [rutaRA]="'/programa/RAasignatura'"
+      rutaEditar="/programa/editarCP"
+      rutaVer="/programa/verCP"
+      [routerLink]="['/programa/crearCA']"
       [competencias]="competencias"
       (eliminarCompetencia)="eliminarCompetencia($event)"
     >
     </app-gestionar-competencias-template>
   `,
 })
-export class GestionarCompetenciasAsignaturaComponent implements OnInit {
+export class CompetenciasAsignaturaComponentdePrograma implements OnInit {
   private route = inject(ActivatedRoute);
 
   asignaturaId: string = '';
@@ -57,13 +60,17 @@ export class GestionarCompetenciasAsignaturaComponent implements OnInit {
   ];
 
   ngOnInit() {
+    this.route.paramMap.subscribe((params) => {
+      this.asignaturaId = params.get('id') || '';
       this.cargarCompetencias();
+    });
   }
 
-
   cargarCompetencias() {
-  this.competencias = this.todasLasCompetencias;
-}
+    this.competencias = this.todasLasCompetencias.filter(
+      (c) => c.asignaturaId === this.asignaturaId
+    );
+  }
 
   eliminarCompetencia(id: number) {
     console.log('Eliminar competencia con ID:', id);

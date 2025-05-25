@@ -26,5 +26,5 @@ export class AsignaturaCardComponent {
   @Input() nombre = '';
   @Input() descripcion = '';
   @Input() color = '#007bff';
-  @Input() ruta = '/asignatura'; // Valor por defecto
+  @Input() ruta!: string // Valor por defecto
 }
