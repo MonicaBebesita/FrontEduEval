@@ -4,7 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 
 @Component({
   standalone: true,
-  selector: 'app-ver-competencia',
+  selector: 'app-ver-competencia-programa',
   imports: [CommonModule],
   template: `
     <div class="container mt-5">
@@ -39,7 +39,7 @@ import { ActivatedRoute } from '@angular/router';
     </div>
   `
 })
-export class VerCompetenciaComponent implements OnInit {
+export class VerCompetenciaProgramaComponent implements OnInit {
   private route = inject(ActivatedRoute);
   competencia: any;
 

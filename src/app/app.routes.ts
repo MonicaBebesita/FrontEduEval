@@ -10,8 +10,10 @@ import { CompetenciasAsignaturaComponentdePrograma } from './pages/coordinador/v
 import { RaProgramaComponent } from './pages/coordinador/vistasSecundarias/ver-RA-CP.component';
 import { CrearCompetenciaProgramaComponent } from './pages/coordinador/vistasSecundarias/crear-competencia-programa.component';
 import { CrearCompetenciaAsignaturaComponent } from './pages/coordinador/vistasSecundarias/crear-competencia-asignatura.component';
-import { VerCompetenciaComponent } from './pages/coordinador/vistasSecundarias/ver-competencia.component';
-import { EditarCompetenciaComponent } from './pages/coordinador/vistasSecundarias/editar-competencia.component';
+import { VerCompetenciaProgramaComponent } from './pages/coordinador/vistasSecundarias/ver-competencia-programa.component';
+import { VerCompetenciaAsignaturaComponent } from './pages/coordinador/vistasSecundarias/ver-competencia-asignatura.component';
+import { EditarCompetenciaProgramaComponent } from './pages/coordinador/vistasSecundarias/editar-competencia-programa.component';
+import { EditarCompetenciaAsignaturaComponent } from './pages/coordinador/vistasSecundarias/editar-competencia-asignatura.component';
 
 export const routes: Routes = [
   {
@@ -47,12 +49,22 @@ export const routes: Routes = [
       {
         path: 'verCP/:id',
 
-        component: VerCompetenciaComponent,
+        component: VerCompetenciaProgramaComponent,
+      },
+       {
+        path: 'verCA/:id',
+
+        component: VerCompetenciaAsignaturaComponent,
       },
       {
         path: 'editarCP/:id',
 
-        component: EditarCompetenciaComponent,
+        component: EditarCompetenciaProgramaComponent,
+      },
+           {
+        path: 'editarCA/:id',
+
+        component: EditarCompetenciaAsignaturaComponent,
       },
       {
         path: 'RAasignatura/:id',

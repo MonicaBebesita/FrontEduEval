@@ -11,8 +11,8 @@ import { GestionarCompetenciasTemplateComponent } from '../../../components/temp
     <app-gestionar-competencias-template
       [titulo]="'Competencias de la Asignatura en el Programa: ' + asignaturaId"
       [rutaRA]="'/programa/RAasignatura'"
-      rutaEditar="/programa/editarCP"
-      rutaVer="/programa/verCP"
+      rutaEditar="/programa/editarCA"
+      rutaVer="/programa/verCA"
       [routerLink]="['/programa/crearCA']"
       [competencias]="competencias"
       (eliminarCompetencia)="eliminarCompetencia($event)"

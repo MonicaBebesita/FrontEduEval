@@ -5,7 +5,7 @@ import { FormsModule } from '@angular/forms';
 
 @Component({
   standalone: true,
-  selector: 'app-editar-competencia',
+  selector: 'app-editar-competencia-asignatura',
   imports: [CommonModule, FormsModule],
   template: `
     <div class="container mt-5">
@@ -46,13 +46,29 @@ import { FormsModule } from '@angular/forms';
           </select>
         </div>
 
+        <div class="mb-3">
+          <label class="form-label">Competencias de Programa Vinculadas</label>
+          <div *ngFor="let cp of competenciasPrograma" class="form-check">
+            <input
+              type="checkbox"
+              class="form-check-input"
+              [id]="'cp-' + cp.id"
+              [checked]="competencia.vinculadas.includes(cp.id)"
+              (change)="onCheckboxChange($event, cp.id)"
+            />
+            <label class="form-check-label" [for]="'cp-' + cp.id">
+              {{ cp.nombre }}
+            </label>
+          </div>
+        </div>
+
         <button type="submit" class="btn btn-success">Guardar Cambios</button>
         <button type="button" class="btn btn-secondary ms-2" (click)="cancelar()">Cancelar</button>
       </form>
     </div>
   `
 })
-export class EditarCompetenciaComponent implements OnInit {
+export class EditarCompetenciaAsignaturaComponent implements OnInit {
   private route = inject(ActivatedRoute);
   private router = inject(Router);
 
@@ -61,15 +77,33 @@ export class EditarCompetenciaComponent implements OnInit {
     nombre: '',
     descripcion: '',
     nivel: 'básico',
+    vinculadas: [] as number[],
   };
+
+  competenciasPrograma = [
+    { id: 10, nombre: 'Comunicación efectiva' },
+    { id: 11, nombre: 'Pensamiento crítico' },
+    { id: 12, nombre: 'Trabajo en equipo' },
+  ];
 
   ngOnInit() {
     const id = Number(this.route.snapshot.paramMap.get('id'));
 
-    
     const todas = [
-      { id: 1, nombre: 'Resolver problemas', descripcion: 'Habilidad para resolver problemas complejos', nivel: 'avanzado' },
-      { id: 2, nombre: 'Pensamiento crítico', descripcion: 'Analizar y evaluar argumentos', nivel: 'básico' },
+      {
+        id: 1,
+        nombre: 'Resolver problemas',
+        descripcion: 'Habilidad para resolver problemas complejos',
+        nivel: 'avanzado',
+        vinculadas: [10, 12],
+      },
+      {
+        id: 2,
+        nombre: 'Pensamiento crítico',
+        descripcion: 'Analizar y evaluar argumentos',
+        nivel: 'básico',
+        vinculadas: [],
+      },
     ];
 
     const encontrada = todas.find((c) => c.id === id);
@@ -80,10 +114,20 @@ export class EditarCompetenciaComponent implements OnInit {
     }
   }
 
+  onCheckboxChange(event: Event, id: number) {
+    const checked = (event.target as HTMLInputElement).checked;
+    if (checked) {
+      if (!this.competencia.vinculadas.includes(id)) {
+        this.competencia.vinculadas.push(id);
+      }
+    } else {
+      this.competencia.vinculadas = this.competencia.vinculadas.filter((i) => i !== id);
+    }
+  }
+
   guardarCambios() {
     console.log('Competencia actualizada:', this.competencia);
-    // Aquí puedes hacer una petición HTTP PUT o PATCH
-    this.router.navigate(['/programa']); // o a donde quieras redirigir
+    this.router.navigate(['/programa']);
   }
 
   cancelar() {
