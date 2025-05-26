@@ -44,12 +44,12 @@ export class RaProgramaComponent {
 
   anadirRA() {
     console.log('Añadir RA');
-    // Aquí puedes abrir un modal o redirigir a una página de creación
+   
   }
 
   editarRA(id: number) {
     console.log('Editar RA con ID:', id);
-    // Aquí puedes abrir un modal o redirigir a la página de edición
+   
   }
 
   eliminarRA(id: number) {

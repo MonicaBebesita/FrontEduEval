@@ -24,12 +24,20 @@ import { FormsModule } from '@angular/forms';
             <h5>ID: {{ ra.id }}</h5>
             <p><strong>Descripción:</strong> {{ ra.descripcion }}</p>
           </div>
-          <button
-            class="btn btn-sm btn-outline-secondary"
-            (click)="abrirModalEditar(ra)"
-          >
-            Editar
-          </button>
+          <div class="d-flex flex-column gap-2">
+            <button
+              class="btn btn-sm btn-outline-secondary"
+              (click)="abrirModalEditar(ra)"
+            >
+              Editar
+            </button>
+            <button
+              class="btn btn-sm btn-outline-danger"
+              (click)="eliminarRA(ra.id)"
+            >
+              Eliminar
+            </button>
+          </div>
         </li>
       </ul>
     </div>
@@ -179,6 +187,12 @@ export class ProgramaRaComponent {
       this.raEditando.descripcion = this.descripcionEditada.trim();
     }
     this.cerrarModal();
+  }
+
+  eliminarRA(id: number) {
+    if (confirm('¿Estás seguro de eliminar este resultado de aprendizaje?')) {
+      this.raList = this.raList.filter((ra) => ra.id !== id);
+    }
   }
 
   generarNuevoId(): number {

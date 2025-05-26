@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { CoordinadorSidebarComponent } from './components/organisms/cordinador-sidebar/sidebar-component';
+import { CoordinadorSidebarComponent } from './components/organisms/cordinador-sidebar/sidebar-coordinador-component';
 
 
 @Component({
