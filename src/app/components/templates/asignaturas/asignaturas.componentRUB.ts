@@ -17,6 +17,7 @@ import { AsignaturasListComponent } from '../../organisms/asignaturas-list/asign
     </div>
   `,
 })
+
 export class AsignaturasTemplateComponentRUB {
   asignaturas = [
     {

@@ -1,8 +1,8 @@
 import { Routes } from '@angular/router';
 import { GestionarCompetenciasAsignaturaComponent } from './pages/asignatura/gestionar-competencias-asignatura.component';
 import { AsignaturasPageComponentCA } from './pages/asignatura/asignaturas.componentCA';
-import { AsignaturasPageComponentRUB } from './pages/asignatura/asignaturas.componentRUB';
-import { GestionarRubricasComponent } from './pages/asignatura/rubrica/gestionar-rubricas/gestionar-rubricas.component';
+import { AsignaturasPageComponentRUB } from './pages/profesor/asignaturas.componentRUB';
+import { GestionarRubricasComponent } from './pages/profesor/gestionar-rubricas.component';
 import { GestionarCompetenciasProgramaComponent } from './pages/coordinador/vistasPrincipales/gestionar-competencias-programa.component';
 import { ProgramaRaComponent } from './pages/coordinador/vistasPrincipales/gestionar-RA-programa.component';
 import { AsignaturasComponentCAdePrograma } from './pages/coordinador/vistasPrincipales/asignaturas.componentCA';

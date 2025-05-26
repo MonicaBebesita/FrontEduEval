@@ -36,6 +36,24 @@
       </div>
     </div>
 
+    <!-- Sección de vinculación con checkboxes -->
+    <div *ngIf="mostrarVinculacion" class="mb-3">
+      <label class="form-label">Vincular con Competencias de Programa</label>
+      <div class="form-check" *ngFor="let cp of competenciasPrograma">
+        <input
+          type="checkbox"
+          class="form-check-input"
+          [id]="'cp-' + cp.id"
+          [value]="cp.id"
+          [checked]="competenciasSeleccionadas.includes(cp.id)"
+          (change)="onCheckboxChange($event, cp.id)"
+        />
+        <label class="form-check-label" [for]="'cp-' + cp.id">
+          {{ cp.descripcion }}
+        </label>
+      </div>
+    </div>
+
     <app-button
       btnClass="btn btn-outline-primary"
       [routerLink]="['/programa/crear']"
