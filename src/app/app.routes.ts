@@ -1,11 +1,7 @@
 import { Routes } from '@angular/router';
-import { GestionarCompetenciasAsignaturaComponent } from './pages/asignatura/gestionar-competencias-asignatura.component';
-import { AsignaturasPageComponentCA } from './pages/asignatura/asignaturas.componentCA';
-import { AsignaturasPageComponentRUB } from './pages/profesor/asignaturas.componentRUB';
-import { GestionarRubricasComponent } from './pages/profesor/gestionar-rubricas.component';
+import { GestionarRubricasComponent } from './pages/profesor/vistasPrincipales/gestionar-rubricas.component';
 import { GestionarCompetenciasProgramaComponent } from './pages/coordinador/vistasPrincipales/gestionar-competencias-programa.component';
 import { ProgramaRaComponent } from './pages/coordinador/vistasPrincipales/gestionar-RA-programa.component';
-import { AsignaturasComponentCAdePrograma } from './pages/coordinador/vistasPrincipales/asignaturas.componentCA';
 import { CompetenciasAsignaturaComponentdePrograma } from './pages/coordinador/vistasPrincipales/competencias-asignatura.component';
 import { RaProgramaComponent } from './pages/coordinador/vistasSecundarias/ver-RA-CP.component';
 import { CrearCompetenciaProgramaComponent } from './pages/coordinador/vistasSecundarias/crear-competencia-programa.component';
@@ -14,6 +10,9 @@ import { VerCompetenciaProgramaComponent } from './pages/coordinador/vistasSecun
 import { VerCompetenciaAsignaturaComponent } from './pages/coordinador/vistasSecundarias/ver-competencia-asignatura.component';
 import { EditarCompetenciaProgramaComponent } from './pages/coordinador/vistasSecundarias/editar-competencia-programa.component';
 import { EditarCompetenciaAsignaturaComponent } from './pages/coordinador/vistasSecundarias/editar-competencia-asignatura.component';
+import { AgregarRaComponent } from './pages/profesor/vistasSecundarias/agregar-ra.component';
+import { AsignaturasCAPage } from './pages/coordinador/vistasPrincipales/asignaturasCA.component';
+import { AsignaturasRUBPage } from './pages/profesor/vistasPrincipales/asignaturasRUB.component';
 
 export const routes: Routes = [
   {
@@ -26,7 +25,7 @@ export const routes: Routes = [
 
       {
         path: 'CAasignaturas',
-        component: AsignaturasComponentCAdePrograma,
+        component: AsignaturasCAPage,
       },
       {
         path: 'CA/:id',
@@ -51,7 +50,7 @@ export const routes: Routes = [
 
         component: VerCompetenciaProgramaComponent,
       },
-       {
+      {
         path: 'verCA/:id',
 
         component: VerCompetenciaAsignaturaComponent,
@@ -61,7 +60,7 @@ export const routes: Routes = [
 
         component: EditarCompetenciaProgramaComponent,
       },
-           {
+      {
         path: 'editarCA/:id',
 
         component: EditarCompetenciaAsignaturaComponent,
@@ -80,56 +79,32 @@ export const routes: Routes = [
       },
     ],
   },
+
   {
-    path: 'asignatura',
+    path: 'profesor',
     children: [
       {
         path: '',
-        component: AsignaturasPageComponentCA, // muestra las tarjetas
+        component: AsignaturasRUBPage, // muestra las tarjetas
       },
       {
-        path: ':id', // cuando haces clic en una asignatura
-        component: GestionarCompetenciasAsignaturaComponent,
-      },
-      {
-        path: 'ra/:id',
-        loadComponent: () =>
-          import('./pages/asignatura/agregar-ra.component').then(
-            (m) => m.AgregarRaComponent
-          ),
-      },
-    ],
-  },
-
-  {
-    path: 'rubrica',
-    children: [
-      {
-        path: '',
-        component: AsignaturasPageComponentRUB, // muestra las tarjetas
-      },
-
-      {
-        path: ':id', // cuando haces clic en una asignatura
+        path: 'RAasignatura/:id', // cuando haces clic en una asignatura
         component: GestionarRubricasComponent,
       },
       {
-        path: 'ra/:id',
-        loadComponent: () =>
-          import('./pages/asignatura/agregar-ra.component').then(
-            (m) => m.AgregarRaComponent
-          ),
+        path: 'agragarRA/:id',
+        component: AgregarRaComponent,
       },
     ],
   },
 
   {
     path: '',
-    redirectTo: '/asignatura',
+    redirectTo: '/profesor',
     pathMatch: 'full',
   },
   {
     path: '**',
-    redirectTo: '/asignatura',
+    redirectTo: '/profesor',
   },
 ];

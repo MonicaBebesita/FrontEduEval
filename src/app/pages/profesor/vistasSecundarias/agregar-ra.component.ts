@@ -2,7 +2,7 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { AgregarRaTemplateComponent } from '../../components/templates/agregar-ra-template/agregar-ra-template.component';
+import { AgregarRaTemplateComponent } from '../../../components/templates/agregar-ra-template/agregar-ra-template.component';
 
 @Component({
   standalone: true,

@@ -12,17 +12,18 @@ import { SidebarNavItemComponent } from '../../molecules/sidebar-nav-item-compon
   styleUrls: ['./profesor-sidebar.component.css'],
 })
 export class ProfesorSidebarComponent {
+
   navItems = [
     {
       icon: 'journal-text',
       label: 'Resultados de aprendizaje (RA) y Rubricas',
-      route: '/uwu',
+      route: '/profesor',
     },
 
     {
       icon: 'check2-square',
       label: 'Evaluaciones',
-      route: '/uwu',
+      route: '/profesor',
     },
 
     {
