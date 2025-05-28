@@ -1,0 +1,105 @@
+<div class="container mt-4">
+  <h4>Añadir Criterio</h4>
+  <form (ngSubmit)="guardar()">
+    <div class="mb-3">
+      <label for="nombre" class="form-label">Nombre del criterio</label>
+      <input
+        type="text"
+        id="nombre"
+        class="form-control"
+        [(ngModel)]="criterio.nombre"
+        name="nombre"
+        required
+      />
+    </div>
+
+    <div class="mb-3">
+      <label for="ponderacion" class="form-label">Ponderación (%)</label>
+      <input
+        type="number"
+        id="ponderacion"
+        class="form-control"
+        [(ngModel)]="criterio.ponderacion"
+        name="ponderacion"
+        required
+        min="1"
+        max="5"
+      />
+    </div>
+
+    <h5 class="mt-4">Descripciones por nivel</h5>
+
+    <div class="mb-3">
+      <label class="form-label">Nivel Alto</label>
+      <textarea
+        class="form-control"
+        [(ngModel)]="criterio.niveles.alto.descripcion"
+        name="descripcionAlto"
+        required
+        placeholder="Descripción para nivel alto"
+      ></textarea>
+      <br />
+      <label for="nota" class="form-label">Nota pra Alto nivel</label>
+      <input
+        type="number"
+        class="form-control mt-2"
+        [(ngModel)]="criterio.niveles.alto.nota"
+        name="notaAlto"
+        placeholder="Nota para nivel alto"
+        required
+        min="1"
+        max="5"
+      />
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">Nivel Medio</label>
+      <textarea
+        class="form-control"
+        [(ngModel)]="criterio.niveles.medio.descripcion"
+        name="descripcionMedio"
+        required
+        placeholder="Descripción para nivel medio"
+      ></textarea>
+      <br />
+      <label for="nota" class="form-label">Nota pra nivel Medio</label>
+      <input
+        type="number"
+        class="form-control mt-2"
+        [(ngModel)]="criterio.niveles.medio.nota"
+        name="notaMedio"
+        placeholder="Nota para nivel medio"
+        required
+        min="1"
+        max="5"
+      />
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">Nivel Bajo</label>
+      <textarea
+        class="form-control"
+        [(ngModel)]="criterio.niveles.bajo.descripcion"
+        name="descripcionBajo"
+        required
+        placeholder="Descripción para nivel bajo"
+      ></textarea>
+      <br />
+      <label for="nota" class="form-label">Nota para Bajo nivel</label>
+      <input
+        type="number"
+        class="form-control mt-2"
+        [(ngModel)]="criterio.niveles.bajo.nota"
+        name="notaBajo"
+        placeholder="Nota para nivel bajo"
+        required
+        min="1"
+        max="5"
+      />
+    </div>
+
+    <div class="mt-4">
+      <button type="submit" class="btn btn-primary">Guardar Criterio</button>
+    </div>
+  </form>
+</div>

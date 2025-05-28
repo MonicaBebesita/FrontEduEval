@@ -1,0 +1,358 @@
+<div class="container mt-4">
+  <h2>RA de: {{ asignaturaId }}</h2>
+
+  <button class="btn btn-primary mb-3" (click)="mostrarModalCrear = true">
+    Añadir RA
+  </button>
+
+  <div *ngFor="let grupo of raAgrupados" class="mb-3">
+    <div class="d-flex justify-content-between align-items-center">
+      <div
+        class="d-flex align-items-center"
+        (click)="grupo.expandido = !grupo.expandido"
+        style="cursor: pointer"
+      >
+        <i
+          class="bi me-2"
+          [ngClass]="grupo.expandido ? 'bi-chevron-down' : 'bi-chevron-right'"
+        ></i>
+        <h4 class="mb-0">{{ grupo.competencia }}</h4>
+      </div>
+    </div>
+
+    <div *ngIf="grupo.expandido" class="mt-2">
+      <ul class="list-group">
+        <li class="list-group-item" *ngFor="let ra of grupo.ras">
+          <div
+            class="d-flex justify-content-between align-items-center"
+            (click)="ra.expandido = !ra.expandido"
+            style="cursor: pointer"
+          >
+            <div class="d-flex align-items-center">
+              <i
+                class="bi me-2"
+                [ngClass]="
+                  ra.expandido ? 'bi-chevron-down' : 'bi-chevron-right'
+                "
+              ></i>
+              <div>
+                <strong>{{ ra.descripcion }}</strong
+                ><br />
+                <small>Creado: {{ ra.fecha }}</small>
+              </div>
+            </div>
+            <div>
+              <button
+                class="btn btn-outline-primary btn-sm me-2"
+                (click)="editarRA(ra); $event.stopPropagation()"
+              >
+                <i class="bi bi-pencil"></i> Editar
+              </button>
+              <button
+                class="btn btn-outline-danger btn-sm"
+                (click)="eliminarRA(ra); $event.stopPropagation()"
+              >
+                <i class="bi bi-trash"></i> Eliminar RA
+              </button>
+            </div>
+          </div>
+
+          <div *ngIf="ra.expandido" class="mt-2 ms-4">
+            <ng-container *ngIf="!ra.rubrica">
+              <button
+                class="btn btn-outline-success btn-sm"
+                (click)="raParaNuevaRubrica = ra"
+              >
+                <i class="bi bi-plus-circle"></i> Crear Rúbrica
+              </button>
+            </ng-container>
+
+            <ng-container *ngIf="ra.rubrica">
+              <div class="card mt-2">
+                <div
+                  class="card-header d-flex justify-content-between align-items-center"
+                >
+                  <div>
+                    <strong>{{ ra.rubrica.nombre }}</strong>
+                  </div>
+                  <div>
+                    <a
+                      class="btn btn-outline-success btn-sm me-2"
+                      [routerLink]="['/profesor/agragarCriterio', ra.id]"
+                    >
+                      <i class="bi bi-plus-circle"></i> Añadir Criterio
+                    </a>
+                    <button
+                      class="btn btn-outline-primary btn-sm me-2"
+                      (click)="editarRubrica(ra)"
+                    >
+                      <i class="bi bi-pencil"></i> Editar
+                    </button>
+                    <button
+                      class="btn btn-outline-danger btn-sm"
+                      (click)="eliminarRubrica(ra)"
+                    >
+                      <i class="bi bi-trash"></i> Eliminar
+                    </button>
+                  </div>
+                </div>
+
+                <div class="card-body">
+                  <div
+                    *ngFor="let criterio of ra.rubrica.criterios"
+                    class="mb-3 criterio-item"
+                  >
+                    <div
+                      class="d-flex justify-content-between align-items-center"
+                      (click)="criterio.expandido = !criterio.expandido"
+                      style="cursor: pointer"
+                    >
+                      <div>
+                        <strong>{{ criterio.nombre }}</strong>
+                        <small class="text-muted"
+                          >(Ponderación: {{ criterio.ponderacion }}%)</small
+                        >
+                      </div>
+                      <div>
+                        <button
+                          class="btn btn-outline-primary btn-sm me-2"
+                          (click)="
+                            editarCriterio(criterio); $event.stopPropagation()
+                          "
+                        >
+                          <i class="bi bi-pencil"></i> Editar
+                        </button>
+                        <button
+                          class="btn btn-outline-danger btn-sm"
+                          (click)="
+                            eliminarCriterio(ra, criterio);
+                            $event.stopPropagation()
+                          "
+                        >
+                          <i class="bi bi-trash"></i> Eliminar
+                        </button>
+                      </div>
+                    </div>
+
+                    <div *ngIf="criterio.expandido" class="mt-2">
+                      <table class="table table-bordered table-sm">
+                        <thead class="table-light">
+                          <tr>
+                            <th>Nivel</th>
+                            <th>Descripción</th>
+                            <th>Nota</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr *ngFor="let nivel of criterio.niveles">
+                            <td>{{ nivel.nivel }}</td>
+                            <td>{{ nivel.descripcion }}</td>
+                            <td>{{ nivel.nota }}</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </ng-container>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Modal Crear RA -->
+  <div class="modal fade show d-block" *ngIf="mostrarModalCrear" tabindex="-1">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <form (ngSubmit)="crearRA()">
+          <div class="modal-header">
+            <h5 class="modal-title">Añadir nuevo RA</h5>
+            <button
+              type="button"
+              class="btn-close"
+              (click)="cerrarModalCrear()"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <div class="mb-3">
+              <label>Descripción del RA</label>
+              <textarea
+                [(ngModel)]="nuevoRA.descripcion"
+                name="descripcion"
+                class="form-control"
+                required
+              ></textarea>
+            </div>
+            <div class="mb-3">
+              <label>Competencia</label>
+              <select
+                [(ngModel)]="nuevoRA.competencia"
+                name="competencia"
+                class="form-select"
+                required
+              >
+                <option
+                  *ngFor="let comp of competenciasAsignatura"
+                  [value]="comp"
+                >
+                  {{ comp }}
+                </option>
+              </select>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              (click)="cerrarModalCrear()"
+            >
+              Cancelar
+            </button>
+            <button type="submit" class="btn btn-primary">Guardar</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal Editar RA -->
+  <div class="modal fade show d-block" *ngIf="raEnEdicion" tabindex="-1">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <form (ngSubmit)="guardarEdicionRA()">
+          <div class="modal-header">
+            <h5 class="modal-title">Editar RA</h5>
+            <button
+              type="button"
+              class="btn-close"
+              (click)="cerrarModalEditar()"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <div class="mb-3">
+              <label>Descripción</label>
+              <textarea
+                [(ngModel)]="raEnEdicion.descripcion"
+                name="descripcion"
+                class="form-control"
+                required
+              ></textarea>
+            </div>
+            <div class="mb-3">
+              <label>Competencia</label>
+              <select
+                [(ngModel)]="raEnEdicion.competencia"
+                name="competencia"
+                class="form-select"
+                required
+              >
+                <option
+                  *ngFor="let comp of competenciasAsignatura"
+                  [value]="comp"
+                >
+                  {{ comp }}
+                </option>
+              </select>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              (click)="cerrarModalEditar()"
+            >
+              Cancelar
+            </button>
+            <button type="submit" class="btn btn-primary">
+              Guardar Cambios
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal Editar Rúbrica -->
+  <div class="modal fade show d-block" *ngIf="rubricaEnEdicion" tabindex="-1">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <form (ngSubmit)="guardarEdicionRubrica()">
+          <div class="modal-header">
+            <h5 class="modal-title">Editar Rúbrica</h5>
+            <button
+              type="button"
+              class="btn-close"
+              (click)="cerrarModalEditarRubrica()"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <div class="mb-3">
+              <label>Nombre de la Rúbrica</label>
+              <input
+                [(ngModel)]="rubricaEnEdicion.nombre"
+                name="nombreRubrica"
+                class="form-control"
+                required
+              />
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              (click)="cerrarModalEditarRubrica()"
+            >
+              Cancelar
+            </button>
+            <button type="submit" class="btn btn-primary">Guardar</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal Crear Rúbrica -->
+  <div class="modal fade show d-block" *ngIf="raParaNuevaRubrica" tabindex="-1">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <form (ngSubmit)="confirmarCrearRubrica()">
+          <div class="modal-header">
+            <h5 class="modal-title">Crear Rúbrica</h5>
+            <button
+              type="button"
+              class="btn-close"
+              (click)="cancelarCrearRubrica()"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <div class="mb-3">
+              <label for="nombreRubrica" class="form-label"
+                >Nombre de la Rúbrica</label
+              >
+              <input
+                type="text"
+                id="nombreRubrica"
+                class="form-control"
+                [(ngModel)]="nuevoNombreRubrica"
+                name="nombreRubrica"
+                required
+              />
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              (click)="cancelarCrearRubrica()"
+            >
+              Cancelar
+            </button>
+            <button type="submit" class="btn btn-primary">Crear</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

@@ -23,7 +23,7 @@ export class ProfesorSidebarComponent {
     {
       icon: 'check2-square',
       label: 'Evaluaciones',
-      route: '/profesor',
+      route: '/profesor/EvalAsignatura',
     },
 
     {

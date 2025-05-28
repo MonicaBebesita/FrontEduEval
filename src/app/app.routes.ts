@@ -1,5 +1,4 @@
 import { Routes } from '@angular/router';
-import { GestionarRubricasComponent } from './pages/profesor/vistasPrincipales/gestionar-rubricas.component';
 import { GestionarCompetenciasProgramaComponent } from './pages/coordinador/vistasPrincipales/gestionar-competencias-programa.component';
 import { ProgramaRaComponent } from './pages/coordinador/vistasPrincipales/gestionar-RA-programa.component';
 import { CompetenciasAsignaturaComponentdePrograma } from './pages/coordinador/vistasPrincipales/competencias-asignatura.component';
@@ -13,6 +12,11 @@ import { EditarCompetenciaAsignaturaComponent } from './pages/coordinador/vistas
 import { AgregarRaComponent } from './pages/profesor/vistasSecundarias/agregar-ra.component';
 import { AsignaturasCAPage } from './pages/coordinador/vistasPrincipales/asignaturasCA.component';
 import { AsignaturasRUBPage } from './pages/profesor/vistasPrincipales/asignaturasRUB.component';
+import { GestionarRAporAsignaturaComponent } from './pages/profesor/vistasPrincipales/gestionar-ra-asignatura.component';
+import { RubricasPorRaComponent } from './pages/profesor/vistasSecundarias/rubricasPorRa.component';
+import { VerEvaluacionesComponent } from './pages/profesor/vistasPrincipales/verEvaluaciones.component';
+import { AsignaturasEvalPage } from './pages/profesor/vistasPrincipales/asignaturasEvalcomponent';
+import { AnadirCriterioComponent } from './pages/profesor/vistasSecundarias/anadir-criterio.component';
 
 export const routes: Routes = [
   {
@@ -85,15 +89,32 @@ export const routes: Routes = [
     children: [
       {
         path: '',
-        component: AsignaturasRUBPage, // muestra las tarjetas
+        component: AsignaturasRUBPage,
       },
       {
-        path: 'RAasignatura/:id', // cuando haces clic en una asignatura
-        component: GestionarRubricasComponent,
+        path: 'RAasignatura/:id',
+        component: GestionarRAporAsignaturaComponent,
+      },
+      {
+        path: 'EvalAsignatura',
+        component: AsignaturasEvalPage,
+      },
+
+      {
+        path: 'VerEvaluaciones/:id',
+        component: VerEvaluacionesComponent,
+      },
+      {
+        path: 'rubricas/:id',
+        component: RubricasPorRaComponent,
       },
       {
         path: 'agragarRA/:id',
         component: AgregarRaComponent,
+      },
+      {
+        path: 'agragarCriterio/:id',
+        component: AnadirCriterioComponent,
       },
     ],
   },
