@@ -34,7 +34,8 @@ import { ActivatedRoute, RouterLink } from '@angular/router';
                   ></i>
                   <strong>{{ ra.descripcion }}</strong>
                 </div>
-                <a [routerLink]="['/evaluaciones/crear', ra.id]" class="btn btn-outline-success btn-sm">
+
+                <a [routerLink]="['/profesor/crearEvaluacion', ra.id]" class="btn btn-outline-success btn-sm">
                   <i class="bi bi-plus-circle"></i> Añadir Evaluación
                 </a>
               </div>

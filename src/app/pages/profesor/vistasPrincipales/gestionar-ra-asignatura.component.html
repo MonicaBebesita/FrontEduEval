@@ -78,7 +78,7 @@
                   <div>
                     <a
                       class="btn btn-outline-success btn-sm me-2"
-                      [routerLink]="['/profesor/agragarCriterio', ra.id]"
+                      [routerLink]="['/profesor/agregarCriterio', ra.id]"
                     >
                       <i class="bi bi-plus-circle"></i> Añadir Criterio
                     </a>
@@ -114,14 +114,16 @@
                         >
                       </div>
                       <div>
-                        <button
+                        <a
                           class="btn btn-outline-primary btn-sm me-2"
-                          (click)="
-                            editarCriterio(criterio); $event.stopPropagation()
-                          "
+                          [routerLink]="[
+                            '/profesor/editarCriterio',
+                            ra.id
+                          ]"
                         >
                           <i class="bi bi-pencil"></i> Editar
-                        </button>
+                        </a>
+
                         <button
                           class="btn btn-outline-danger btn-sm"
                           (click)="

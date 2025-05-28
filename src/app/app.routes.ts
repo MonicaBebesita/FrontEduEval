@@ -17,6 +17,8 @@ import { RubricasPorRaComponent } from './pages/profesor/vistasSecundarias/rubri
 import { VerEvaluacionesComponent } from './pages/profesor/vistasPrincipales/verEvaluaciones.component';
 import { AsignaturasEvalPage } from './pages/profesor/vistasPrincipales/asignaturasEvalcomponent';
 import { AnadirCriterioComponent } from './pages/profesor/vistasSecundarias/anadir-criterio.component';
+import { EditarCriterioComponent } from './pages/profesor/vistasSecundarias/editar-criterio.component';
+import { AnadirEvaluacionComponent } from './pages/profesor/vistasSecundarias/crear-evaluacion.component';
 
 export const routes: Routes = [
   {
@@ -113,8 +115,16 @@ export const routes: Routes = [
         component: AgregarRaComponent,
       },
       {
-        path: 'agragarCriterio/:id',
+        path: 'agregarCriterio/:id',
         component: AnadirCriterioComponent,
+      },
+      {
+        path: 'editarCriterio/:id',
+        component: EditarCriterioComponent,
+      },
+      {
+        path: 'crearEvaluacion/:id',
+        component: AnadirEvaluacionComponent,
       },
     ],
   },
