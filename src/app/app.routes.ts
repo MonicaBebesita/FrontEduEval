@@ -19,6 +19,7 @@ import { AsignaturasEvalPage } from './pages/profesor/vistasPrincipales/asignatu
 import { AnadirCriterioComponent } from './pages/profesor/vistasSecundarias/anadir-criterio.component';
 import { EditarCriterioComponent } from './pages/profesor/vistasSecundarias/editar-criterio.component';
 import { AnadirEvaluacionComponent } from './pages/profesor/vistasSecundarias/crear-evaluacion.component';
+import { EditarEvaluacionComponent } from './pages/profesor/vistasSecundarias/editar-evaluacion.component';
 
 export const routes: Routes = [
   {
@@ -125,6 +126,10 @@ export const routes: Routes = [
       {
         path: 'crearEvaluacion/:id',
         component: AnadirEvaluacionComponent,
+      },
+            {
+        path: 'editarEvaluacion/:id',
+        component: EditarEvaluacionComponent,
       },
     ],
   },

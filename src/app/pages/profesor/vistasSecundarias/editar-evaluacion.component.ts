@@ -22,12 +22,12 @@ interface Criterio {
 
 @Component({
   standalone: true,
-  selector: 'app-anadir-evaluacion',
+  selector: 'app-editar-evaluacion',
   imports: [CommonModule, FormsModule, RouterModule],
   template: `
     <div class="container mt-4">
-      <h3>Añadir Evaluación - RA {{ raId }}</h3>
-      <form (ngSubmit)="guardarEvaluacion()">
+      <h3>Editar Evaluación - RA {{ raId }}</h3>
+      <form (ngSubmit)="editarEvaluacion()">
         <div class="mb-3">
           <label for="nombreEstudiante" class="form-label">Nombre del Estudiante</label>
           <input
@@ -97,7 +97,7 @@ interface Criterio {
     </div>
   `,
 })
-export class AnadirEvaluacionComponent implements OnInit {
+export class EditarEvaluacionComponent implements OnInit {
   private route = inject(ActivatedRoute);
   private router = inject(Router);
 
@@ -110,9 +110,11 @@ export class AnadirEvaluacionComponent implements OnInit {
   criterios: Criterio[] = [];
 
   puntajeTotal = 0;
+  evaluacionId = '';
 
   ngOnInit() {
     this.raId = this.route.snapshot.paramMap.get('raId') || '';
+    this.evaluacionId = this.route.snapshot.paramMap.get('evaluacionId') || '';
 
     // Simulamos la carga de criterios para ese RA.
     // En la práctica deberías obtenerlo de un servicio/backend.
@@ -138,9 +140,29 @@ export class AnadirEvaluacionComponent implements OnInit {
         },
       },
     ];
+      if (this.evaluacionId) {
+    const evaluacionExistente = {
+      nombreEstudiante: 'Juan Pérez',
+      comentarios: 'Buen desempeño general',
+      criterios: [
+        { criterioId: 1, nivel: 'medio' },
+        { criterioId: 2, nivel: 'alto' },
+      ],
+    };
+
+    this.nombreEstudiante = evaluacionExistente.nombreEstudiante;
+    this.comentarios = evaluacionExistente.comentarios;
+
+    for (const c of this.criterios) {
+      const criterioGuardado = evaluacionExistente.criterios.find(ec => ec.criterioId === c.id);
+      if (criterioGuardado) {
+        c.seleccionadoNivel = criterioGuardado.nivel as 'alto' | 'medio' | 'bajo';
+      }
+    }
 
     this.calcularNotas();
   }
+}
 
   calcularPuntajeParcial(criterio: Criterio): number {
     if (!criterio.seleccionadoNivel) return 0;
@@ -159,7 +181,7 @@ export class AnadirEvaluacionComponent implements OnInit {
     );
   }
 
-  guardarEvaluacion() {
+  editarEvaluacion() {
     if (!this.formValido()) return;
 
     // Aquí enviarías los datos al backend
@@ -177,7 +199,7 @@ export class AnadirEvaluacionComponent implements OnInit {
 
     console.log('Guardando evaluación:', evaluacion);
 
-    alert(`Evaluación guardada con nota total: ${this.puntajeTotal.toFixed(2)}`);
+    alert(`Evaluación actualizada con nota total: ${this.puntajeTotal.toFixed(2)}`);
 
     this.router.navigate(['/evaluaciones', this.raId]);
   }

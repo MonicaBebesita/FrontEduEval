@@ -50,9 +50,13 @@ import { ActivatedRoute, RouterLink } from '@angular/router';
                     {{ eval.nombreEstudiante }} - <strong>{{ eval.calificacionTotal }}/5.0</strong>
                   </div>
                   <div>
-                    <button class="btn btn-outline-primary btn-sm me-2" (click)="$event.stopPropagation()">
-                      <i class="bi bi-pencil"></i> Editar
-                    </button>
+
+
+
+                    <a [routerLink]="['/profesor/editarEvaluacion', eval.id]" class="btn btn-outline-primary btn-sm me-2">
+                  <i class="bi bi-pencil"></i> Editar
+                </a>
+
                     <button class="btn btn-outline-danger btn-sm" (click)="$event.stopPropagation(); eliminarEvaluacion(eval)">
                       <i class="bi bi-trash"></i> Eliminar
                     </button>
