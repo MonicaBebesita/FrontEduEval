@@ -112,7 +112,7 @@ export const routes: Routes = [
         component: RubricasPorRaComponent,
       },
       {
-        path: 'agragarRA/:id',
+        path: 'agregarRA/:asignaturaId/:competencia',
         component: AgregarRaComponent,
       },
       {

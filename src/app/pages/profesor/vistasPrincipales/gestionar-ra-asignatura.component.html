@@ -1,9 +1,7 @@
 <div class="container mt-4">
   <h2>RA de: {{ asignaturaId }}</h2>
 
-  <button class="btn btn-primary mb-3" (click)="mostrarModalCrear = true">
-    Añadir RA
-  </button>
+
 
   <div *ngFor="let grupo of raAgrupados" class="mb-3">
     <div class="d-flex justify-content-between align-items-center">
@@ -18,6 +16,13 @@
         ></i>
         <h4 class="mb-0">{{ grupo.competencia }}</h4>
       </div>
+        <a
+        class="btn btn-primary btn-sm"
+        [routerLink]="['/profesor/agregarRA', asignaturaId, grupo.competencia]"
+      >
+        <i class="bi bi-plus-circle"></i> Añadir RA
+      </a>
+
     </div>
 
     <div *ngIf="grupo.expandido" class="mt-2">
@@ -164,60 +169,7 @@
     </div>
   </div>
 
-  <!-- Modal Crear RA -->
-  <div class="modal fade show d-block" *ngIf="mostrarModalCrear" tabindex="-1">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <form (ngSubmit)="crearRA()">
-          <div class="modal-header">
-            <h5 class="modal-title">Añadir nuevo RA</h5>
-            <button
-              type="button"
-              class="btn-close"
-              (click)="cerrarModalCrear()"
-            ></button>
-          </div>
-          <div class="modal-body">
-            <div class="mb-3">
-              <label>Descripción del RA</label>
-              <textarea
-                [(ngModel)]="nuevoRA.descripcion"
-                name="descripcion"
-                class="form-control"
-                required
-              ></textarea>
-            </div>
-            <div class="mb-3">
-              <label>Competencia</label>
-              <select
-                [(ngModel)]="nuevoRA.competencia"
-                name="competencia"
-                class="form-select"
-                required
-              >
-                <option
-                  *ngFor="let comp of competenciasAsignatura"
-                  [value]="comp"
-                >
-                  {{ comp }}
-                </option>
-              </select>
-            </div>
-          </div>
-          <div class="modal-footer">
-            <button
-              type="button"
-              class="btn btn-secondary"
-              (click)="cerrarModalCrear()"
-            >
-              Cancelar
-            </button>
-            <button type="submit" class="btn btn-primary">Guardar</button>
-          </div>
-        </form>
-      </div>
-    </div>
-  </div>
+
 
   <!-- Modal Editar RA -->
   <div class="modal fade show d-block" *ngIf="raEnEdicion" tabindex="-1">

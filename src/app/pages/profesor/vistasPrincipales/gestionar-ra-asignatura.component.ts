@@ -111,33 +111,6 @@ export class GestionarRAporAsignaturaComponent implements OnInit {
     }
   }
 
-  crearRA() {
-    const nuevo = {
-      id: Date.now(),
-      descripcion: this.nuevoRA.descripcion,
-      fecha: new Date().toISOString().split('T')[0],
-      competencia: this.nuevoRA.competencia,
-      expandido: false,
-      rubrica: null,
-    };
-
-    const grupo = this.raAgrupados.find(
-      (g) => g.competencia === nuevo.competencia
-    );
-    if (grupo) {
-      grupo.ras.push(nuevo);
-    } else {
-      this.raAgrupados.push({
-        competencia: nuevo.competencia,
-        expandido: false,
-        ras: [nuevo],
-      });
-    }
-
-    this.nuevoRA = { descripcion: '', competencia: '' };
-    this.mostrarModalCrear = false;
-  }
-
   cerrarModalCrear() {
     this.mostrarModalCrear = false;
     this.nuevoRA = { descripcion: '', competencia: '' };
