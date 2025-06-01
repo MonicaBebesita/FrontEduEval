@@ -3,61 +3,61 @@
   <form (ngSubmit)="agregar()">
     <div class="row mb-3">
       <div class="col-md-6">
-        <app-input
-          label="Nombre Competencia"
-          [(ngModel)]="nombre"
-          name="nombre"
-        />
+        <label class="form-label">Nombre de la Competencia</label>
+        <input type="text" class="form-control" placeholder="Nombre de la competencia" [(ngModel)]="nombre"
+          name="nombre" required #nombre="ngModel" />
+        <div class="alert alert-danger mt-2" [hidden]="nombre.valid || !nombre.touched">
+          El nombre de la competencia es obligatorio.
+        </div>
       </div>
+
       <div class="col-md-6">
-        <app-input
-          label="Descripción Competencia"
-          [(ngModel)]="descripcion"
-          name="descripcion"
-        />
+        <label class="form-label">Descripción de la Competencia</label>
+        <input type="text" class="form-control" placeholder="Descripción de la competencia" [(ngModel)]="descripcion"
+          name="descripcion" required #descripcion="ngModel" />
+        <div class="alert alert-danger mt-2" [hidden]="descripcion.valid || !descripcion.touched">
+          La descripción de la competencia es obligatoria.
+        </div>
       </div>
     </div>
 
     <div class="row mb-3">
       <div class="col-md-6">
-        <app-input
-          label="Descripción del RA"
-          [(ngModel)]="descripcionRA"
-          name="descripcionRA"
-        />
+        <label class="form-label">Descripción de la RA</label>
+        <input type="text" class="form-control" placeholder="Descripción del RA" [(ngModel)]="descripcionRA"
+          name="descripcionRA" required #descripcionRA="ngModel" />
+        <div class="alert alert-danger mt-2" [hidden]="descripcionRA.valid || !descripcionRA.touched">
+          La descripción del Resultado de Aprendizaje (RA) es obligatoria.
+        </div>
       </div>
+
       <div class="col-md-6">
-        <app-select
-          label="Nivel"
-          [(ngModel)]="nivel"
-          name="nivel"
-          [options]="niveles"
-        />
+        <label class="form-label">Nivel</label>
+        <select class="form-select" [(ngModel)]="nivel" name="nivel" required #nivel="ngModel">
+          <option value="" disabled selected>Selecciona un nivel</option>
+          <option *ngFor="let n of niveles" [value]="n.value">{{ n.label }}</option>
+        </select>
+
+        <div class="alert alert-danger mt-2" [hidden]="nivel.valid || !nivel.touched">
+          El nivel es obligatorio.
+        </div>
       </div>
+
     </div>
 
     <!-- Sección de vinculación con checkboxes -->
     <div *ngIf="mostrarVinculacion" class="mb-3">
       <label class="form-label">Vincular con Competencias de Programa</label>
       <div class="form-check" *ngFor="let cp of competenciasPrograma">
-        <input
-          type="checkbox"
-          class="form-check-input"
-          [id]="'cp-' + cp.id"
-          [value]="cp.id"
-          [checked]="competenciasSeleccionadas.includes(cp.id)"
-          (change)="onCheckboxChange($event, cp.id)"
-        />
+        <input type="checkbox" class="form-check-input" [id]="'cp-' + cp.id" [value]="cp.id"
+          [checked]="competenciasSeleccionadas.includes(cp.id)" (change)="onCheckboxChange($event, cp.id)" />
         <label class="form-check-label" [for]="'cp-' + cp.id">
           {{ cp.descripcion }}
         </label>
       </div>
     </div>
 
-    <app-button
-      btnClass="btn btn-outline-primary"
-      [routerLink]="['/programa/crear']"
-    >
+    <app-button btnClass="btn btn-outline-primary" [routerLink]="['/programa/crear']">
       Agregar
     </app-button>
   </form>

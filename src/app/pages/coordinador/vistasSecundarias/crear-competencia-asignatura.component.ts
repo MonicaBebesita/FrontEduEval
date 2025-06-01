@@ -9,7 +9,6 @@ import { CrearCompetenciaTemplateComponent } from '../../../components/templates
   imports: [CommonModule, CrearCompetenciaTemplateComponent, RouterModule],
   template: `
     <app-crear-competencia-template 
-
       [mostrarVinculacion]="true"
       [competenciasPrograma]="[ { id: 1, descripcion: 'Resolver problemas', nivel: 'avanzado' },
     { id: 2, descripcion: 'Pensamiento crítico', nivel: 'básico' }]"

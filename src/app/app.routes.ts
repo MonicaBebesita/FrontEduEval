@@ -23,6 +23,7 @@ import { EditarEvaluacionComponent } from './pages/profesor/vistasSecundarias/ed
 
 export const routes: Routes = [
   {
+    
     path: 'programa',
     children: [
       {
@@ -134,6 +135,8 @@ export const routes: Routes = [
     ],
   },
 
+  { path: '', redirectTo: 'login', pathMatch: 'full' },
+  { path: 'login', loadComponent: () => import('./login/login.component').then(m => m.LoginComponent) },
   {
     path: '',
     redirectTo: '/profesor',

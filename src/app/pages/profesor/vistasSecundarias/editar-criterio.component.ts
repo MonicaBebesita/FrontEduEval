@@ -1,7 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { RouterLink } from '@angular/router';
 
 export interface Nivel {
   descripcion: string;
@@ -21,7 +20,7 @@ export interface Criterio {
 @Component({
   selector: 'app-editar-criterio',
   standalone: true,
-  imports: [CommonModule, FormsModule, RouterLink],
+  imports: [CommonModule, FormsModule],
   templateUrl: './editar-criterio.component.html',
   styleUrls: ['./editar-criterio.component.css'],
 })
