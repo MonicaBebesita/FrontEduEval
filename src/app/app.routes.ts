@@ -20,8 +20,10 @@ import { AnadirCriterioComponent } from './pages/profesor/vistasSecundarias/anad
 import { EditarCriterioComponent } from './pages/profesor/vistasSecundarias/editar-criterio.component';
 import { AnadirEvaluacionComponent } from './pages/profesor/vistasSecundarias/crear-evaluacion.component';
 import { EditarEvaluacionComponent } from './pages/profesor/vistasSecundarias/editar-evaluacion.component';
+import { AuthGuard } from './seguridad/auth.guard';
 
 export const routes: Routes = [
+  
   {
     path: 'programa',
     children: [
@@ -127,7 +129,7 @@ export const routes: Routes = [
         path: 'crearEvaluacion/:id',
         component: AnadirEvaluacionComponent,
       },
-            {
+      {
         path: 'editarEvaluacion/:id',
         component: EditarEvaluacionComponent,
       },
@@ -135,8 +137,14 @@ export const routes: Routes = [
   },
 
   {
+    path: 'dashboard',
+    component: AsignaturasRUBPage,
+    canActivate: [AuthGuard],
+  },
+
+  {
     path: '',
-    redirectTo: '/profesor',
+    redirectTo: 'dashboard',
     pathMatch: 'full',
   },
   {

@@ -1,7 +1,9 @@
 <div class="d-flex">
-  <app-sidebar-profesor></app-sidebar-profesor>
+      <ng-container *ngIf="!isLoginRoute">
+        <app-sidebar-profesor></app-sidebar-profesor>
+      </ng-container>
 
-  <div class="flex-grow-1 p-3">
-    <router-outlet></router-outlet>
-  </div>
-</div>
+      <div class="flex-grow-1 p-3">
+        <router-outlet></router-outlet>
+      </div>
+    </div>
