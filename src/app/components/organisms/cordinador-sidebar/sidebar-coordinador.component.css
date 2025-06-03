@@ -22,10 +22,11 @@
 }
 
 app-sidebar-nav-item:hover {
-  background-color: turquoise;
+  background-color: silver;
   border-radius: 0.25rem;
   cursor: pointer;
   transition: background-color 0.2s ease-in-out;
+  color: white !important;
 }
 
 @keyframes vibrate {

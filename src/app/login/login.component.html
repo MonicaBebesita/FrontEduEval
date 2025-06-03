@@ -1,4 +1,4 @@
-<div class="login-wrapper" >
+<div class="login-wrapper">
   <div class="logo-floating scale-up">
     <app-icon name="mortarboard-fill" customClass="icon"></app-icon>
     <span class="brand">EduEval</span>
@@ -7,12 +7,23 @@
   <div class="login-container animate login-card">
     <h3>Inicio de sesión</h3><br>
     <form [formGroup]="form" (ngSubmit)="login()">
-      <input type="text" formControlName="username" placeholder="Nombre de usuario" />
+
+      <!-- Usuario -->
+      <div class="input-group">
+        <app-icon name="person-fill" class="input-icon"></app-icon>
+        <input type="text" formControlName="username" id="username" required />
+        <label for="username">Nombre de usuario</label>
+      </div>
       <div *ngIf="form.get('username')?.invalid && form.get('username')?.touched" class="error">
         El nombre de usuario es obligatorio.
       </div>
 
-      <input type="password" formControlName="password" placeholder="Contraseña" />
+      <!-- Contraseña -->
+      <div class="input-group">
+        <app-icon name="lock-fill" class="input-icon"></app-icon>
+        <input type="password" formControlName="password" id="password" required />
+        <label for="password">Contraseña</label>
+      </div>
       <div *ngIf="form.get('password')?.invalid && form.get('password')?.touched" class="error">
         La contraseña es obligatoria.
       </div>
