@@ -32,7 +32,9 @@ export class LoginComponent {
     this.auth.login(this.username, this.password).subscribe({
       next: () => {
         this.error = null;
-        console.log('[LoginComponent] Login exitoso. Redirigiendo a /dashboard.');
+        console.log(
+          '[LoginComponent] Login exitoso. Redirigiendo a /dashboard.'
+        );
         this.router.navigate(['/dashboard']);
       },
       error: (err) => {
@@ -40,5 +42,11 @@ export class LoginComponent {
         console.error('[LoginComponent] Error en el login:', err); // Loggea el error completo para depuración
       },
     });
+  }
+  // Método para manejar el cambio en los campos de entrada. Resetea el error si el usuario comienza a escribir
+  onInputChange() {
+    if (this.error) {
+      this.error = null;
+    }
   }
 }
