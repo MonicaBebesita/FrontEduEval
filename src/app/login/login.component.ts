@@ -1,40 +1,44 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms';
-import { RouterModule } from '@angular/router';
-import { IconComponent } from '../components/atoms/icon/icon.component'
+import { FormsModule } from '@angular/forms';
+import { Router, RouterModule } from '@angular/router';
+import { IconComponent } from '../components/atoms/icon/icon.component';
+import { AuthService } from '../services/seguridad/auth.service';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, RouterModule, IconComponent],
+  imports: [CommonModule, FormsModule, RouterModule, IconComponent],
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css'],
 })
 export class LoginComponent {
-  form;
+  username = '';
+  password = '';
+  error: string | null = null;
 
-  constructor(private fb: FormBuilder) {
-    this.form = this.fb.group({
-      username: ['', Validators.required],
-      password: ['', Validators.required],
-    });
-  }
+  constructor(private auth: AuthService, private router: Router) {}
 
-  login() {
-    if (this.form.invalid) {
-      this.form.markAllAsTouched();
+  onSubmit() {
+    console.log('[LoginComponent] Intentando iniciar sesión...');
+    console.log('[LoginComponent] Usuario:', this.username); // ¡Cuidado con mostrar la contraseña en logs de producción!
+
+    if (!this.username || !this.password) {
+      this.error = 'Por favor ingrese usuario y contraseña.';
+      console.error('[LoginComponent] Error: Usuario o contraseña vacíos.');
       return;
     }
 
-    const { username, password } = this.form.value;
-
-    // Login de ejemplo
-    if (username === 'admin' && password === '1234') {
-      alert(`🎉 Bienvenido, ${username}!`);
-      // Redirigir o guardar sesión
-    } else {
-      alert('❌ Usuario o contraseña incorrectos');
-    }
+    this.auth.login(this.username, this.password).subscribe({
+      next: () => {
+        this.error = null;
+        console.log('[LoginComponent] Login exitoso. Redirigiendo a /dashboard.');
+        this.router.navigate(['/dashboard']);
+      },
+      error: (err) => {
+        this.error = 'Credenciales incorrectas.';
+        console.error('[LoginComponent] Error en el login:', err); // Loggea el error completo para depuración
+      },
+    });
   }
 }

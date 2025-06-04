@@ -1,0 +1,11 @@
+.dashboard-container {
+  background-color: #000066;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+img {
+  max-width: 300px;
+}

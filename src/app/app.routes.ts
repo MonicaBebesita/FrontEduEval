@@ -20,130 +20,71 @@ import { AnadirCriterioComponent } from './pages/profesor/vistasSecundarias/anad
 import { EditarCriterioComponent } from './pages/profesor/vistasSecundarias/editar-criterio.component';
 import { AnadirEvaluacionComponent } from './pages/profesor/vistasSecundarias/crear-evaluacion.component';
 import { EditarEvaluacionComponent } from './pages/profesor/vistasSecundarias/editar-evaluacion.component';
+import { DashboardComponent } from './pages/dashboard.component';
+import { authGuard } from './services/seguridad/auth.guard';
+import { LoginComponent } from './login/login.component';
+import { SidebarLayoutComponent } from './components/organisms/sidebar/sidebar-layout.component';
 
+// Rutas protegidas con sidebar
 export const routes: Routes = [
   {
-    
-    path: 'programa',
-    children: [
-      {
-        path: '',
-        component: GestionarCompetenciasProgramaComponent,
-      },
-
-      {
-        path: 'CAasignaturas',
-        component: AsignaturasCAPage,
-      },
-      {
-        path: 'CA/:id',
-        component: CompetenciasAsignaturaComponentdePrograma,
-      },
-      {
-        path: 'RAprograma/:id',
-        component: ProgramaRaComponent,
-      },
-      {
-        path: 'crearCP',
-
-        component: CrearCompetenciaProgramaComponent,
-      },
-      {
-        path: 'crearCA',
-
-        component: CrearCompetenciaAsignaturaComponent,
-      },
-      {
-        path: 'verCP/:id',
-
-        component: VerCompetenciaProgramaComponent,
-      },
-      {
-        path: 'verCA/:id',
-
-        component: VerCompetenciaAsignaturaComponent,
-      },
-      {
-        path: 'editarCP/:id',
-
-        component: EditarCompetenciaProgramaComponent,
-      },
-      {
-        path: 'editarCA/:id',
-
-        component: EditarCompetenciaAsignaturaComponent,
-      },
-      {
-        path: 'RAasignatura/:id',
-        loadComponent: () =>
-          import(
-            './pages/coordinador/vistasSecundarias/ver-RA-CA.component'
-          ).then((m) => m.ListaRaPageComponent),
-      },
-      {
-        path: 'RAprograma/:id',
-
-        component: RaProgramaComponent,
-      },
-    ],
-  },
-
-  {
-    path: 'profesor',
-    children: [
-      {
-        path: '',
-        component: AsignaturasRUBPage,
-      },
-      {
-        path: 'RAasignatura/:id',
-        component: GestionarRAporAsignaturaComponent,
-      },
-      {
-        path: 'EvalAsignatura',
-        component: AsignaturasEvalPage,
-      },
-
-      {
-        path: 'VerEvaluaciones/:id',
-        component: VerEvaluacionesComponent,
-      },
-      {
-        path: 'rubricas/:id',
-        component: RubricasPorRaComponent,
-      },
-      {
-        path: 'agregarRA/:asignaturaId/:competencia',
-        component: AgregarRaComponent,
-      },
-      {
-        path: 'agregarCriterio/:id',
-        component: AnadirCriterioComponent,
-      },
-      {
-        path: 'editarCriterio/:id',
-        component: EditarCriterioComponent,
-      },
-      {
-        path: 'crearEvaluacion/:id',
-        component: AnadirEvaluacionComponent,
-      },
-            {
-        path: 'editarEvaluacion/:id',
-        component: EditarEvaluacionComponent,
-      },
-    ],
-  },
-
-  { path: '', redirectTo: 'login', pathMatch: 'full' },
-  { path: 'login', loadComponent: () => import('./login/login.component').then(m => m.LoginComponent) },
-  {
     path: '',
-    redirectTo: '/profesor',
-    pathMatch: 'full',
+    canActivate: [authGuard],
+    component: SidebarLayoutComponent,
+    children: [
+      {
+        path: 'programa',
+        children: [
+          { path: '', component: GestionarCompetenciasProgramaComponent },
+          { path: 'CAasignaturas', component: AsignaturasCAPage },
+          { path: 'CA/:id', component: CompetenciasAsignaturaComponentdePrograma },
+          { path: 'RAprograma/:id', component: RaProgramaComponent },
+          { path: 'crearCP', component: CrearCompetenciaProgramaComponent },
+          { path: 'crearCA', component: CrearCompetenciaAsignaturaComponent },
+          { path: 'verCP/:id', component: VerCompetenciaProgramaComponent },
+          { path: 'verCA/:id', component: VerCompetenciaAsignaturaComponent },
+          { path: 'editarCP/:id', component: EditarCompetenciaProgramaComponent },
+          { path: 'editarCA/:id', component: EditarCompetenciaAsignaturaComponent },
+          {
+            path: 'RAasignatura/:id',
+            loadComponent: () =>
+              import('./pages/coordinador/vistasSecundarias/ver-RA-CA.component').then(m => m.ListaRaPageComponent),
+          },
+        ],
+      },
+      {
+        path: 'profesor',
+        children: [
+          { path: '', component: AsignaturasRUBPage },
+          { path: 'RAasignatura/:id', component: GestionarRAporAsignaturaComponent },
+          { path: 'EvalAsignatura', component: AsignaturasEvalPage },
+          { path: 'VerEvaluaciones/:id', component: VerEvaluacionesComponent },
+          { path: 'rubricas/:id', component: RubricasPorRaComponent },
+          { path: 'agregarRA/:asignaturaId/:competencia', component: AgregarRaComponent },
+          { path: 'agregarCriterio/:id', component: AnadirCriterioComponent },
+          { path: 'editarCriterio/:id', component: EditarCriterioComponent },
+          { path: 'crearEvaluacion/:id', component: AnadirEvaluacionComponent },
+          { path: 'editarEvaluacion/:id', component: EditarEvaluacionComponent },
+        ],
+      },
+      {
+        path: 'dashboard',
+        component: DashboardComponent,
+      },
+       {
+        path: '',
+        component: DashboardComponent,
+      },
+    ],
   },
+
+  // Login sin sidebar
   {
-    path: '**',
-    redirectTo: '/profesor',
+    path: 'login',
+    component: LoginComponent,
   },
+
+  // Default y not found
+  { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
+  { path: '**', redirectTo: 'dashboard' },
 ];
