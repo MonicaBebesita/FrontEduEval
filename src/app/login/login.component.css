@@ -1,7 +1,7 @@
 :host {
     background-image: linear-gradient(rgba(0, 0, 0, 0.5),
             rgba(0, 0, 0, 0.5)),
-             url('https://facultades.unicauca.edu.co/regionalizacion/sites/all/themes/regionalizacion/images/cabezote_recortada.png');
+        url('https://facultades.unicauca.edu.co/regionalizacion/sites/all/themes/regionalizacion/images/cabezote_recortada.png');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -37,7 +37,7 @@
 
 .icon {
     font-size: 1.5rem;
-    color: #3b82f6;
+    color: royalblue;
 }
 
 .brand {
@@ -118,6 +118,9 @@
 }
 
 input {
+    background-color: transparent !important;
+    -webkit-box-shadow: none !important;
+    box-shadow: none !important;
     width: 100%;
     padding: 1rem 1rem 0.5rem 2.5rem;
     border: none;
@@ -129,8 +132,10 @@ input {
 }
 
 input:focus {
-    border-bottom-color: #3b82f6;
+    border-bottom-color: royalblue;
+    color: whitesmoke;
 }
+
 
 label {
     position: absolute;
@@ -145,7 +150,7 @@ label {
 input:focus+label,
 input:valid+label {
     top: -0.5rem;
-    color: #3b82f6;
+    color: royalblue;
     padding: 0 0.25rem;
     border-radius: 0.25rem;
 }
@@ -154,7 +159,7 @@ button {
     width: 100%;
     padding: 0.75rem 1rem;
     font-size: 1rem;
-    background-color: dodgerblue;
+    background-color: royalblue;
     color: #ffffff;
     border: none;
     border-radius: 0.5rem;
@@ -163,17 +168,13 @@ button {
 }
 
 button:hover {
-    background-color: #2563eb;
-}
-
-button:disabled {
-    background-color: #9ca3af;
-    cursor: not-allowed;
+    background-color: whitesmoke;
+    color: royalblue;
 }
 
 .error {
     color: tomato;
-    font-size: 0.875rem;
+    font-size: 0.6rem;
     text-align: left;
     margin-bottom: 0.5rem;
     margin-top: -0.5rem;
