@@ -1,12 +1,13 @@
 <fieldset class="border p-3 rounded">
   <legend class="float-none w-auto px-3">Nueva competencia y RA</legend>
-  <form (ngSubmit)="agregar()">
+  <form (ngSubmit)="onSubmit()">
     <div class="row mb-3">
       <div class="col-md-6">
         <app-input
-          label="Nombre Competencia"
-          [(ngModel)]="nombre"
-          name="nombre"
+          label="ID Programa"
+          [(ngModel)]="idPrograma"
+          name="idPrograma"
+          type="number"
         />
       </div>
       <div class="col-md-6">
@@ -36,7 +37,6 @@
       </div>
     </div>
 
-    <!-- Sección de vinculación con checkboxes -->
     <div *ngIf="mostrarVinculacion" class="mb-3">
       <label class="form-label">Vincular con Competencias de Programa</label>
       <div class="form-check" *ngFor="let cp of competenciasPrograma">
@@ -55,10 +55,16 @@
     </div>
 
     <app-button
-      btnClass="btn btn-outline-primary"
-      [routerLink]="['/programa/crear']"
+      btnClass="btn btn-primary"
+      type="submit" >
+      Crear
+    </app-button>
+
+    <app-button
+      btnClass="btn btn-secondary ms-2"
+      [routerLink]="['/asignatura']" type="button"
     >
-      Agregar
+      Volver
     </app-button>
   </form>
 </fieldset>

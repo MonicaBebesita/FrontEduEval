@@ -1,6 +1,5 @@
-export interface ResultadoAprendizaje {
-  descripcion: string;
-}
+import { ResultadoAprendizaje } from "./resultado-aprendizaje";
+
 
 export interface CompetenciaPrograma {
   id_programa: number;
