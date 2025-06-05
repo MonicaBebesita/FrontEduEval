@@ -13,7 +13,7 @@ import { ProgramaService } from '../../../services/programa.service';
     <app-gestionar-competencias-template
       [titulo]="'Competencias del Programa'"
       [competencias]="competencias"
-      [routerLink]="['/programa/crearCP']"
+      [routerLinkCrear]="['/programa/crearCP']"
       rutaRA="/programa/RAprograma"
       rutaEditar="/programa/editarCP"
       rutaVer="/programa/verCP"

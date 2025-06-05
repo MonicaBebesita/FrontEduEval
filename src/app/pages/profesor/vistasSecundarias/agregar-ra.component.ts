@@ -1,17 +1,11 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, OnInit, inject, ViewChild, ElementRef } from '@angular/core';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { ResultadoAprendizajeAsignatura } from '../../../modelos/resultado-aprendizaje-asignatura'; // Importa el modelo
+import { RAyRubricaService } from '../../../services/RAyRubrica.service';
 
-
-
-interface RA {
-  id: number;
-  descripcion: string;
-  fecha: string; // ISO date
-  competencia: string;
-  
-}
+declare var bootstrap: any; // Para los modales de Bootstrap
 
 @Component({
   standalone: true,
@@ -22,37 +16,64 @@ interface RA {
 export class AgregarRaComponent implements OnInit {
   private route = inject(ActivatedRoute);
   private router = inject(Router);
+  private competenciaAsignaturaService = inject(RAyRubricaService); // Inyecta el servicio
 
-  asignaturaId = '';
-  competenciaDestino = '';
+  asignaturaId: number | null = null;
+  competenciaDestinoId: number | null = null; // Usaremos el ID numérico de la competencia destino
 
-  ras: RA[] = [];
-  rasFiltrados: RA[] = [];
-  fechaFiltro: string = '';
-  nuevoRA: Partial<RA> = {};
-   mostrarModalCrear = false;
+  // Lista de todos los RAs de la asignatura para filtrar y copiar
+  ras: ResultadoAprendizajeAsignatura[] = [];
+  rasFiltrados: ResultadoAprendizajeAsignatura[] = [];
+
+  fechaFiltro: string = ''; // Para filtrar por fecha (opcional)
+
+  // Para el modal de crear RA
+  @ViewChild('addRaModalRef') addRaModalRef!: ElementRef;
+  private addBsModal: any;
+  nuevoRA: Partial<ResultadoAprendizajeAsignatura> = {}; // El nuevo RA a crear
+  nuevaRADescripcion: string = ''; // Para la descripción en el modal
+
+  // No se usa raEnEdicion ni mostrarModalCrear globalmente para este componente
+  // (raEnEdicion se usa en GestionarRAporAsignaturaComponent para edición)
 
   ngOnInit() {
-    this.asignaturaId = this.route.snapshot.paramMap.get('asignaturaId') || '';
-    this.competenciaDestino = this.route.snapshot.paramMap.get('competencia') || '';
+    this.route.paramMap.subscribe(params => {
+      const asignaturaIdStr = params.get('asignaturaId');
+      const competenciaIdStr = params.get('competenciaId'); // Asegúrate que el parámetro de la ruta sea 'competenciaId'
 
-    // Simulación de datos. Reemplazar con servicio real.
-    this.ras = [
-      {
-        id: 1,
-        descripcion: 'Desarrolla soluciones utilizando patrones de diseño',
-        fecha: '2024-01-15',
-        competencia: 'Competencia 1'
-      },
-      {
-        id: 2,
-        descripcion: 'Comprende y aplica principios de arquitectura de software',
-        fecha: '2024-03-10',
-        competencia: 'Competencia 2'
+      if (asignaturaIdStr && competenciaIdStr) {
+        this.asignaturaId = +asignaturaIdStr;
+        this.competenciaDestinoId = +competenciaIdStr; // Convertir a número
+
+        console.log(`Cargando RA para Asignatura ID: ${this.asignaturaId}, Competencia Destino ID: ${this.competenciaDestinoId}`);
+        this.cargarRAsExistentes();
+      } else {
+        console.error('IDs de asignatura o competencia destino no encontrados en la ruta.');
+        alert('Error: No se pudo determinar la asignatura o competencia destino.');
+        this.router.navigate(['/profesor']); // Redirigir a una página segura
       }
-    ];
+    });
+  }
 
-    this.rasFiltrados = [...this.ras];
+  ngAfterViewInit(): void {
+    // Inicializa el modal de Bootstrap aquí
+    this.addBsModal = new bootstrap.Modal(this.addRaModalRef.nativeElement);
+  }
+
+  cargarRAsExistentes(): void {
+    if (this.asignaturaId === null) return;
+
+    this.competenciaAsignaturaService.getSoloResultadosAprendizajeAsignatura(this.asignaturaId).subscribe({
+      next: (data) => {
+        this.ras = data;
+        this.filtrarPorFecha(); // Aplicar el filtro inicial
+        console.log('RAs existentes cargados para copiar/crear:', this.ras);
+      },
+      error: (err) => {
+        console.error('Error al cargar RAs existentes:', err);
+        alert('Error al cargar la lista de Resultados de Aprendizaje para copiar.');
+      }
+    });
   }
 
   filtrarPorFecha() {
@@ -60,54 +81,104 @@ export class AgregarRaComponent implements OnInit {
       this.rasFiltrados = [...this.ras];
       return;
     }
-
-    this.rasFiltrados = this.ras.filter(ra => ra.fecha >= this.fechaFiltro);
+    // Asegurarse de que 'fecha_creacion' exista y sea comparable
+    this.rasFiltrados = this.ras.filter(ra =>
+      ra.fecha_creacion && ra.fecha_creacion.substring(0, 10) >= this.fechaFiltro
+    );
   }
 
-  copiarRA(ra: RA) {
-    alert(`RA copiado a la competencia "${this.competenciaDestino}":\n\n${ra.descripcion}`);
-    // Lógica de copia real aquí...
-  }
+  // --- Funcionalidad de Copiar RA ---
+  copiarRA(ra: ResultadoAprendizajeAsignatura) {
+    if (this.competenciaDestinoId === null || ra.id === undefined) {
+      alert('Error: No se pudo copiar el RA. Falta el ID del RA o el ID de la competencia destino.');
+      return;
+    }
 
-  editarRA(ra: RA) {
-    alert(`Editar RA: ${ra.descripcion}`);
-    // Redirigir o abrir modal, según tu flujo
-  }
-
-  eliminarRA(ra: RA) {
-    const confirmacion = confirm('Si eliminas este RA no podrás reutilizarlo en el futuro. ¿Deseas continuar?');
-    if (confirmacion) {
-      this.ras = this.ras.filter(r => r.id !== ra.id);
-      this.filtrarPorFecha();
+    if (confirm(`¿Estás seguro de copiar el RA "${ra.descripcion}" a la competencia actual?`)) {
+      this.competenciaAsignaturaService.copiarRaACompetencia(ra.id, this.competenciaDestinoId).subscribe({
+        next: (response) => {
+          console.log('RA copiado exitosamente:', response);
+          alert('RA copiado exitosamente a la competencia.');
+          // Puedes decidir qué hacer después de copiar:
+          // 1. Recargar los RAs de la competencia destino (si tu backend lo soporta con un GET específico)
+          // 2. Redirigir a la vista de gestión de RAs para esa competencia:
+          this.router.navigate(['/profesor/RAasignatura', this.asignaturaId]);
+        },
+        error: (err) => {
+          console.error('Error al copiar RA:', err);
+          alert('Error al copiar el Resultado de Aprendizaje. Verifica si ya existe o hay un problema en el servidor.');
+        }
+      });
     }
   }
- prepararNuevoRA() {
-    this.nuevoRA = {
-      descripcion: '',
-      fecha: new Date().toISOString().split('T')[0], // Fecha actual
-      competencia: this.competenciaDestino
-    };
-    this.mostrarModalCrear = true; // abrir modal
+
+  // --- Funcionalidad de Crear Nuevo RA ---
+  prepararNuevoRA() {
+    this.nuevaRADescripcion = ''; // Limpiar el campo de descripción
+    this.addBsModal.show(); // Abrir modal
   }
 
   guardarNuevoRA() {
-    if (!this.nuevoRA.descripcion?.trim()) return;
+    if (this.competenciaDestinoId === null) {
+      alert('Error: No se pudo crear el RA. El ID de la competencia destino no está disponible.');
+      return;
+    }
+    if (!this.nuevaRADescripcion.trim()) {
+      alert('La descripción del Resultado de Aprendizaje no puede estar vacía.');
+      return;
+    }
 
-    const nuevo: RA = {
-      id: this.ras.length + 1,
-      descripcion: this.nuevoRA.descripcion!,
-      fecha: this.nuevoRA.fecha!,
-      competencia: this.nuevoRA.competencia!
+    const nuevoRAData = {
+      competencia: this.competenciaDestinoId,
+      descripcion: this.nuevaRADescripcion,
     };
 
-    this.ras.push(nuevo);
-    this.filtrarPorFecha();
-
- 
-    this.mostrarModalCrear = false;
+    this.competenciaAsignaturaService.crearResultadoAprendizaje(nuevoRAData).subscribe({
+      next: (response) => {
+        console.log('Nuevo RA creado exitosamente:', response);
+        alert('Resultado de Aprendizaje creado exitosamente.');
+        this.addBsModal.hide(); // Cerrar modal
+        this.router.navigate(['/profesor/RAasignatura', this.asignaturaId]); // Redirigir al listado
+      },
+      error: (err) => {
+        console.error('Error al crear nuevo RA:', err);
+        alert('Error al crear el nuevo Resultado de Aprendizaje. ' + JSON.stringify(err.error));
+      }
+    });
   }
 
   cerrarModalCrear() {
-    this.mostrarModalCrear = false;
+    this.addBsModal.hide();
+  }
+
+  // --- Funcionalidad de Eliminar RA (no es desvincular, es eliminar) ---
+  eliminarRA(ra: ResultadoAprendizajeAsignatura) {
+    if (ra.id === undefined) {
+      alert('Error: El RA no tiene ID para eliminar.');
+      return;
+    }
+
+    const confirmacion = confirm('Si eliminas este RA se borrará permanentemente. ¿Deseas continuar?');
+    if (confirmacion) {
+      this.competenciaAsignaturaService.eliminarResultadoAprendizaje(ra.id).subscribe({
+        next: () => {
+          alert('RA eliminado exitosamente.');
+          // Actualizar la lista localmente
+          this.ras = this.ras.filter(r => r.id !== ra.id);
+          this.filtrarPorFecha();
+        },
+        error: (err) => {
+          console.error('Error al eliminar RA:', err);
+          alert('Error al eliminar el Resultado de Aprendizaje.');
+        }
+      });
+    }
+  }
+
+  // --- Funcionalidad de Editar RA (Mantener redirección simple) ---
+  editarRA(ra: ResultadoAprendizajeAsignatura) {
+    alert(`Redirigiendo para editar RA: ${ra.descripcion}`);
+    // Aquí puedes redirigir a tu componente de edición de RA
+    this.router.navigate(['/profesor/editarRA', ra.id]); // Asume una ruta como 'profesor/editarRA/:id'
   }
 }

@@ -1,16 +1,17 @@
-
+// src/app/components/templates/asignaturas-template/asignaturas-template.component.ts
 import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { AsignaturasListComponent } from '../../../components/organisms/asignaturas-list/asignaturas-list.component';
+import { AsignaturasListComponent } from '../../organisms/asignaturas-list/asignaturas-list.component';
+import { Asignatura } from '../../../modelos/asignatura';
 
 @Component({
   selector: 'app-asignaturas-template',
   standalone: true,
   imports: [CommonModule, AsignaturasListComponent],
-  templateUrl:'asignatura-template.component.html'
+  templateUrl:'./asignatura-template.component.html'
 })
 export class AsignaturasTemplateComponent {
   @Input() titulo = 'Asignaturas';
-  @Input() rutaDestino = '/programa';
-  @Input() asignaturas: { id: string; nombre: string; descripcion: string; color: string }[] = [];
+  @Input() rutaDestinoBase = '/'; 
+  @Input() asignaturas: Asignatura[] = [];
 }

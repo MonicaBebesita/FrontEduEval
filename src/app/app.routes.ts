@@ -40,7 +40,7 @@ export const routes: Routes = [
           { path: 'CA/:id', component: CompetenciasAsignaturaComponentdePrograma },
           { path: 'RAprograma/:id', component: RaProgramaComponent },
           { path: 'crearCP', component: CrearCompetenciaProgramaComponent },
-          { path: 'crearCA', component: CrearCompetenciaAsignaturaComponent },
+          { path: 'crearCA/:id', component: CrearCompetenciaAsignaturaComponent },
           { path: 'verCP/:id', component: VerCompetenciaProgramaComponent },
           { path: 'verCA/:id', component: VerCompetenciaAsignaturaComponent },
           { path: 'editarCP/:id', component: EditarCompetenciaProgramaComponent },
@@ -60,7 +60,7 @@ export const routes: Routes = [
           { path: 'EvalAsignatura', component: AsignaturasEvalPage },
           { path: 'VerEvaluaciones/:id', component: VerEvaluacionesComponent },
           { path: 'rubricas/:id', component: RubricasPorRaComponent },
-          { path: 'agregarRA/:asignaturaId/:competencia', component: AgregarRaComponent },
+          { path: 'agregarRA/:asignaturaId/:competenciaId', component: AgregarRaComponent },
           { path: 'agregarCriterio/:id', component: AnadirCriterioComponent },
           { path: 'editarCriterio/:id', component: EditarCriterioComponent },
           { path: 'crearEvaluacion/:id', component: AnadirEvaluacionComponent },
@@ -68,6 +68,7 @@ export const routes: Routes = [
         ],
       },
       {
+        
         path: 'dashboard',
         component: DashboardComponent,
       },
