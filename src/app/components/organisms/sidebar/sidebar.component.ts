@@ -1,4 +1,3 @@
-// sidebar.component.ts
 import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
@@ -55,9 +54,22 @@ export class SidebarComponent implements OnInit {
     });
   }
 
+  sidebarActive = false;
+
+  toggleSidebar() {
+    this.sidebarActive = !this.sidebarActive;
+  }
+
+  closeSidebarOnMobile() {
+    if (window.innerWidth < 992) {
+      this.sidebarActive = false;
+    }
+  }
+
   onRoleChange() {
     console.log('[SidebarComponent] Cambio de rol a:', this.selectedRole);
     this.configureMenu(this.selectedRole);
+    this.closeSidebarOnMobile();
   }
 
   configureMenu(role: string) {
