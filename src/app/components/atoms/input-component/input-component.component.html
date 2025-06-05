@@ -1,0 +1,23 @@
+<div class="mb-3">
+  <label *ngIf="label" class="form-label">{{ label }}</label>
+  <input
+    class="form-control"
+    [type]="type"
+    [name]="name"
+    [(ngModel)]="value"
+    [required]="required"
+    [attr.min]="min"
+    [attr.minlength]="minlength"
+    [attr.maxlength]="maxlength"
+    (keydown)="blockNegativeInput($event)"
+    #model="ngModel"
+    (blur)="onTouched()"
+    (ngModelChange)="onChange(value)"
+    [ngClass]="{ 'is-invalid': model.invalid && (model.touched || model.dirty) }"
+  />
+  <div *ngIf="model.invalid && (model.touched || model.dirty)" class="invalid-feedback">
+    <div *ngIf="model.errors?.['required']">Este campo es obligatorio.</div>
+    <div *ngIf="model.errors?.['min']">El valor mínimo es {{ min }}.</div>
+    <div *ngIf="model.errors?.['minlength']">
+  Mínimo {{ model.errors?.['minlength']?.requiredLength }} caracteres.</div>
+</div>

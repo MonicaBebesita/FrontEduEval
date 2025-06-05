@@ -8,15 +8,7 @@ import { Asignatura } from '../../../modelos/asignatura';
   selector: 'app-asignaturas-template',
   standalone: true,
   imports: [CommonModule, AsignaturasListComponent],
-  template: `
-    <div class="container mt-4">
-      <h2 class="mb-4">{{ titulo }}</h2>
-      <app-asignaturas-list
-        [asignaturas]="asignaturas"
-        [rutaDestinoBase]="rutaDestinoBase"
-      ></app-asignaturas-list>
-    </div>
-  `,
+  templateUrl:'./asignatura-template.component.html'
 })
 export class AsignaturasTemplateComponent {
   @Input() titulo = 'Asignaturas';

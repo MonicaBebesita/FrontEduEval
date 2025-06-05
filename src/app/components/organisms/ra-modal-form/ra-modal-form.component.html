@@ -1,0 +1,17 @@
+<div class="modal fade" id="modalRA" tabindex="-1" aria-hidden="true">
+      <div class="modal-dialog">
+        <form class="modal-content" (ngSubmit)="crearRa()">
+          <div class="modal-header">
+            <h5 class="modal-title">Nuevo Resultado de Aprendizaje</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+          </div>
+          <div class="modal-body">
+            <app-input label="Descripción" [(ngModel)]="descripcion" name="descripcion" />
+          </div>
+          <div class="modal-footer">
+            <app-button btnClass="btn btn-primary" type="submit">Crear</app-button>
+            <app-button btnClass="btn btn-secondary" type="button" data-bs-dismiss="modal">Cancelar</app-button>
+          </div>
+        </form>
+      </div>
+    </div>

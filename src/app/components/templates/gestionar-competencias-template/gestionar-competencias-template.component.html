@@ -1,0 +1,21 @@
+<div class="container mt-4">
+      <div class="d-flex justify-content-between align-items-center mb-3">
+        <h2>{{ titulo }}</h2>
+        <app-icon-button
+          icon="plus-lg"
+          label="Crear Competencia"
+          [routerLink]="routerLink"
+        />
+      </div>
+      
+
+
+      <app-competencias-table
+        [competencias]="competencias"
+         [rutaRA]="rutaRA"
+        [rutaEditar]="rutaEditar"
+        [rutaVer]="rutaVer"
+        (onDelete)="eliminarCompetencia.emit($event)"
+      >
+      </app-competencias-table>
+    </div>
