@@ -1,4 +1,3 @@
-// sidebar.component.ts
 import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
@@ -29,13 +28,17 @@ export class SidebarComponent implements OnInit {
   ngOnInit(): void {
     console.log('[SidebarComponent] ngOnInit iniciado');
 
-    this.auth.getUserRoles()
-      .pipe(filter(roles => roles && roles.length > 0)) // Solo procede si hay roles
+    this.auth
+      .getUserRoles()
+      .pipe(filter((roles) => roles && roles.length > 0)) // Solo procede si hay roles
       .subscribe((roles) => {
         console.log('[SidebarComponent] Suscripción de roles recibida:', roles);
         this.userRoles = roles;
         this.selectedRole = roles[0]; // Seleccionar el primer rol por defecto
-        console.log('[SidebarComponent] Rol seleccionado por defecto:', this.selectedRole);
+        console.log(
+          '[SidebarComponent] Rol seleccionado por defecto:',
+          this.selectedRole
+        );
         this.configureMenu(this.selectedRole);
       });
 
@@ -49,13 +52,24 @@ export class SidebarComponent implements OnInit {
         this.selectedRole = '';
       }
     });
+  }
 
+  sidebarActive = false;
 
+  toggleSidebar() {
+    this.sidebarActive = !this.sidebarActive;
+  }
+
+  closeSidebarOnMobile() {
+    if (window.innerWidth < 992) {
+      this.sidebarActive = false;
+    }
   }
 
   onRoleChange() {
     console.log('[SidebarComponent] Cambio de rol a:', this.selectedRole);
     this.configureMenu(this.selectedRole);
+    this.closeSidebarOnMobile();
   }
 
   configureMenu(role: string) {
