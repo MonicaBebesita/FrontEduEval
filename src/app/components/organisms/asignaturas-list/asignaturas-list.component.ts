@@ -1,6 +1,8 @@
+// src/app/components/organisms/asignaturas-list/asignaturas-list.component.ts
 import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AsignaturaCardComponent } from '../../atoms/asignatura-card/asignatura-card.component';
+import { Asignatura } from '../../../modelos/asignatura';
 
 @Component({
   selector: 'app-asignaturas-list',
@@ -14,13 +16,12 @@ import { AsignaturaCardComponent } from '../../atoms/asignatura-card/asignatura-
           [nombre]="asignatura.nombre"
           [descripcion]="asignatura.descripcion"
           [color]="asignatura.color"
-          [ruta]="rutaDestino"
-        />
+          [rutaBase]="rutaDestinoBase" />
       </div>
     </div>
   `,
 })
 export class AsignaturasListComponent {
-  @Input() asignaturas: any[] = [];
-  @Input() rutaDestino!: string 
+  @Input() asignaturas: Asignatura[] = [];
+  @Input() rutaDestinoBase!: string; // Renombrado
 }

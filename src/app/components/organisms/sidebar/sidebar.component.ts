@@ -29,13 +29,17 @@ export class SidebarComponent implements OnInit {
   ngOnInit(): void {
     console.log('[SidebarComponent] ngOnInit iniciado');
 
-    this.auth.getUserRoles()
-      .pipe(filter(roles => roles && roles.length > 0)) // Solo procede si hay roles
+    this.auth
+      .getUserRoles()
+      .pipe(filter((roles) => roles && roles.length > 0)) // Solo procede si hay roles
       .subscribe((roles) => {
         console.log('[SidebarComponent] Suscripción de roles recibida:', roles);
         this.userRoles = roles;
         this.selectedRole = roles[0]; // Seleccionar el primer rol por defecto
-        console.log('[SidebarComponent] Rol seleccionado por defecto:', this.selectedRole);
+        console.log(
+          '[SidebarComponent] Rol seleccionado por defecto:',
+          this.selectedRole
+        );
         this.configureMenu(this.selectedRole);
       });
 
@@ -49,8 +53,6 @@ export class SidebarComponent implements OnInit {
         this.selectedRole = '';
       }
     });
-
-
   }
 
   onRoleChange() {
@@ -68,13 +70,14 @@ export class SidebarComponent implements OnInit {
             label: 'Competencias y Resultados de Aprendizaje (CP/RP)',
             route: '/programa',
           },
+
           {
             label: 'Competencias por Asignatura (CA)',
             route: '/programa/CAasignaturas',
           },
         ];
         break;
-      case 'docente':
+      case 'profesor':
         this.icon = 'bi bi-person-workspace';
         this.menuItems = [
           { label: 'RA y Rúbricas', route: '/profesor' },

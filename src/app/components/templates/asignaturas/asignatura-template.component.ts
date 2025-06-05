@@ -1,7 +1,8 @@
-
+// src/app/components/templates/asignaturas-template/asignaturas-template.component.ts
 import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { AsignaturasListComponent } from '../../../components/organisms/asignaturas-list/asignaturas-list.component';
+import { AsignaturasListComponent } from '../../organisms/asignaturas-list/asignaturas-list.component';
+import { Asignatura } from '../../../modelos/asignatura';
 
 @Component({
   selector: 'app-asignaturas-template',
@@ -12,13 +13,13 @@ import { AsignaturasListComponent } from '../../../components/organisms/asignatu
       <h2 class="mb-4">{{ titulo }}</h2>
       <app-asignaturas-list
         [asignaturas]="asignaturas"
-        [rutaDestino]="rutaDestino"
+        [rutaDestinoBase]="rutaDestinoBase"
       ></app-asignaturas-list>
     </div>
   `,
 })
 export class AsignaturasTemplateComponent {
   @Input() titulo = 'Asignaturas';
-  @Input() rutaDestino = '/programa';
-  @Input() asignaturas: { id: string; nombre: string; descripcion: string; color: string }[] = [];
+  @Input() rutaDestinoBase = '/'; 
+  @Input() asignaturas: Asignatura[] = [];
 }
