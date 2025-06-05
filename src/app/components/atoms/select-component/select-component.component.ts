@@ -1,27 +1,12 @@
-import { Component, Input, forwardRef } from '@angular/core';
+import { Component, Input, forwardRef, OnChanges, SimpleChanges, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule, ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms'; // Importa ControlValueAccessor y NG_VALUE_ACCESSOR
+import { FormsModule, ControlValueAccessor, NG_VALUE_ACCESSOR, NgModel } from '@angular/forms';
 
 @Component({
   standalone: true,
   selector: 'app-select',
   imports: [CommonModule, FormsModule],
-  template: `
-    <div class="mb-3">
-      <label *ngIf="label" [for]="id" class="form-label">{{ label }}</label>
-      <select
-        [id]="id"
-        class="form-select"
-        [(ngModel)]="value" [name]="name"
-        (blur)="onTouched()"
-        (ngModelChange)="onChange(value)"
-      >
-        <option value="" disabled selected>Seleccione una opción</option>
-        <option *ngFor="let opt of options" [ngValue]="opt.value"> {{ opt.label }}
-        </option>
-      </select>
-    </div>
-  `,
+  templateUrl: './select-component.component.html',
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
@@ -30,29 +15,28 @@ import { FormsModule, ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/f
     },
   ],
 })
-export class SelectComponent implements ControlValueAccessor {
+export class SelectComponent implements ControlValueAccessor, OnChanges {
   @Input() id = '';
   @Input() name = '';
   @Input() label = '';
-  @Input() options: { value: string | number; label: string }[] = []; // Opciones con valor y etiqueta
+  @Input() required = false;
+  @Input() options: { value: string | number; label: string }[] = [];
+  @Input() formResetTrigger: boolean = false;
 
-  value: any; // El valor interno del control
+  @ViewChild(NgModel) model!: NgModel;
+
+  value: any;
   onChange: any = () => {};
   onTouched: any = () => {};
 
-  writeValue(value: any): void {
-    this.value = value;
-  }
+  writeValue(value: any): void { this.value = value; }
+  registerOnChange(fn: any): void { this.onChange = fn; }
+  registerOnTouched(fn: any): void { this.onTouched = fn; }
 
-  registerOnChange(fn: any): void {
-    this.onChange = fn;
-  }
-
-  registerOnTouched(fn: any): void {
-    this.onTouched = fn;
-  }
-
-  setDisabledState?(isDisabled: boolean): void {
-    // Alógica para deshabilitar el select si es necesario
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['formResetTrigger'] && this.model?.control) {
+      this.model.control.markAsPristine();
+      this.model.control.markAsUntouched();
+    }
   }
 }

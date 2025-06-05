@@ -7,66 +7,8 @@ import { FormsModule } from '@angular/forms';
   standalone: true,
   selector: 'app-editar-competencia-asignatura',
   imports: [CommonModule, FormsModule],
-  template: `
-    <div class="container mt-5">
-      <h2>Editar Competencia</h2>
-      <form (ngSubmit)="guardarCambios()">
-        <div class="mb-3">
-          <label class="form-label">Nombre Competencia</label>
-          <input
-            type="text"
-            class="form-control"
-            [(ngModel)]="competencia.nombre"
-            name="nombre"
-            required
-          />
-        </div>
-
-        <div class="mb-3">
-          <label class="form-label">Descripción Competencia</label>
-          <textarea
-            class="form-control"
-            [(ngModel)]="competencia.descripcion"
-            name="descripcion"
-            required
-          ></textarea>
-        </div>
-
-        <div class="mb-3">
-          <label class="form-label">Nivel</label>
-          <select
-            class="form-select"
-            [(ngModel)]="competencia.nivel"
-            name="nivel"
-            required
-          >
-            <option value="básico">Básico</option>
-            <option value="intermedio">Intermedio</option>
-            <option value="avanzado">Avanzado</option>
-          </select>
-        </div>
-
-        <div class="mb-3">
-          <label class="form-label">Competencias de Programa Vinculadas</label>
-          <div *ngFor="let cp of competenciasPrograma" class="form-check">
-            <input
-              type="checkbox"
-              class="form-check-input"
-              [id]="'cp-' + cp.id"
-              [checked]="competencia.vinculadas.includes(cp.id)"
-              (change)="onCheckboxChange($event, cp.id)"
-            />
-            <label class="form-check-label" [for]="'cp-' + cp.id">
-              {{ cp.nombre }}
-            </label>
-          </div>
-        </div>
-
-        <button type="submit" class="btn btn-success">Guardar Cambios</button>
-        <button type="button" class="btn btn-secondary ms-2" (click)="cancelar()">Cancelar</button>
-      </form>
-    </div>
-  `
+  templateUrl:'./editar-competencia-asignatura.component.html' 
+  
 })
 export class EditarCompetenciaAsignaturaComponent implements OnInit {
   private route = inject(ActivatedRoute);

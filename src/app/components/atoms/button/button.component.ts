@@ -19,7 +19,7 @@ export class ButtonComponent {
   @Input() routerLink?: any[];
   @Input() type: 'button' | 'submit' | 'reset' = 'button'; // Define el tipo de botón
   @Output() clickEvent = new EventEmitter<void>(); // Evento de clic
-
+  
   onClick(): void {
 
     if (!this.routerLink) {

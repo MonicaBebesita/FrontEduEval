@@ -6,19 +6,7 @@ import { AsignaturaCardComponent } from '../../atoms/asignatura-card/asignatura-
   selector: 'app-asignaturas-list',
   standalone: true,
   imports: [CommonModule, AsignaturaCardComponent],
-  template: `
-    <div class="row">
-      <div class="col-md-4" *ngFor="let asignatura of asignaturas">
-        <app-asignatura-card
-          [id]="asignatura.id"
-          [nombre]="asignatura.nombre"
-          [descripcion]="asignatura.descripcion"
-          [color]="asignatura.color"
-          [ruta]="rutaDestino"
-        />
-      </div>
-    </div>
-  `,
+  templateUrl:'asignaturas-list.component.html' 
 })
 export class AsignaturasListComponent {
   @Input() asignaturas: any[] = [];

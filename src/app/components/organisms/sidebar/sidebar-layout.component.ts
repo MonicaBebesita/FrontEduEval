@@ -8,13 +8,6 @@ import { SidebarComponent } from './sidebar.component';
   selector: 'app-sidebar-layout',
   standalone: true,
   imports: [CommonModule, RouterOutlet, SidebarComponent],
-  template: `
-    <div class="d-flex">
-      <app-sidebar></app-sidebar>
-      <div class="flex-grow-1 p-3">
-        <router-outlet></router-outlet>
-      </div>
-    </div>
-  `,
+  templateUrl:'./sidebar-layout.component.html' 
 })
 export class SidebarLayoutComponent {}

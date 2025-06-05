@@ -7,19 +7,7 @@ import { RouterModule } from '@angular/router';
   selector: 'app-asignatura-card',
   standalone: true,
   imports: [CommonModule, RouterModule],
-  template: `
-    <div
-      class="card text-white mb-3"
-      [style.backgroundColor]="color"
-      style="cursor: pointer"
-      [routerLink]="[ruta, id]"
-    >
-      <div class="card-body">
-        <h5 class="card-title">{{ nombre }}</h5>
-        <p class="card-text">{{ descripcion }}</p>
-      </div>
-    </div>
-  `,
+  templateUrl: './asignatura-card.component.html'
 })
 export class AsignaturaCardComponent {
   @Input() id = '';
