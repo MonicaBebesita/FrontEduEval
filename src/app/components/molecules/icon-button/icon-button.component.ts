@@ -7,7 +7,11 @@ import { IconComponent } from '../../atoms/icon/icon.component';
   standalone: true,
   selector: 'app-icon-button',
   imports: [CommonModule, ButtonComponent, IconComponent],
-  templateUrl: './icon-button.component.html'
+  template: `
+    <app-button [btnClass]="btnClass" [routerLink]="routerLink">
+      <app-icon [name]="icon" [customClass]="iconClass"></app-icon> {{ label }}
+    </app-button>
+  `
 })
 export class IconButtonComponent {
   @Input() icon = '';

@@ -8,7 +8,18 @@ import { Asignatura } from '../../../modelos/asignatura';
   selector: 'app-asignaturas-list',
   standalone: true,
   imports: [CommonModule, AsignaturaCardComponent],
-  templateUrl:'./asignaturas-list.component.html' 
+  template: `
+    <div class="row">
+      <div class="col-md-4" *ngFor="let asignatura of asignaturas">
+        <app-asignatura-card
+          [id]="asignatura.id"
+          [nombre]="asignatura.nombre"
+          [descripcion]="asignatura.descripcion"
+          [color]="asignatura.color"
+          [rutaBase]="rutaDestinoBase" />
+      </div>
+    </div>
+  `,
 })
 export class AsignaturasListComponent {
   @Input() asignaturas: Asignatura[] = [];

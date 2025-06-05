@@ -1,27 +1,30 @@
 <fieldset class="border p-3 rounded">
   <legend class="float-none w-auto px-3">Nueva competencia y RA</legend>
-  <form #form="ngForm" (ngSubmit)="onSubmit(form)" unvaliate>
+  <form (ngSubmit)="onSubmit()">
     <div class="row mb-3">
       <div class="col-md-6">
         <app-input
-          label="Descripción"
+          label="ID Programa"
+          [(ngModel)]="idPrograma"
+          name="idPrograma"
+          type="number"
+        />
+      </div>
+      <div class="col-md-6">
+        <app-input
+          label="Descripción Competencia"
           [(ngModel)]="descripcion"
           name="descripcion"
-          [minlength]="10"
-          [required]="true"
-          [formResetTrigger]="formResetToggle"
         />
       </div>
     </div>
+
     <div class="row mb-3">
       <div class="col-md-6">
         <app-input
           label="Descripción del RA"
           [(ngModel)]="descripcionRA"
           name="descripcionRA"
-          [minlength]="10"
-          [required]="true"
-          [formResetTrigger]="formResetToggle"
         />
       </div>
       <div class="col-md-6">
@@ -30,9 +33,7 @@
           [(ngModel)]="nivel"
           name="nivel"
           [options]="niveles"
-          [required]="true"
-          [formResetTrigger]="formResetToggle"
-        ></app-select>
+        />
       </div>
     </div>
 
@@ -53,11 +54,17 @@
       </div>
     </div>
 
-    <app-button btnClass="btn btn-primary" type="submit">Crear</app-button>
-    <app-button btnClass="btn btn-secondary ms-2" [routerLink]="['/asignatura']" type="button">Volver</app-button>
-  </form>
+    <app-button
+      btnClass="btn btn-primary"
+      type="submit" >
+      Crear
+    </app-button>
 
-  <div *ngIf="mensajeExito" class="alert alert-success mt-3">
-    {{ mensajeExito }}
-  </div>
+    <app-button
+      btnClass="btn btn-secondary ms-2"
+      [routerLink]="['/asignatura']" type="button"
+    >
+      Volver
+    </app-button>
+  </form>
 </fieldset>

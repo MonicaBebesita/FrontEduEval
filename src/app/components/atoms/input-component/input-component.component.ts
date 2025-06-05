@@ -1,14 +1,23 @@
-import {
-  Component, Input, forwardRef, ViewChild, OnChanges, SimpleChanges
-} from '@angular/core';
+import { Component, Input, forwardRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule, ControlValueAccessor, NG_VALUE_ACCESSOR, NgModel } from '@angular/forms';
+import { FormsModule, ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms'; // Importa ControlValueAccessor y NG_VALUE_ACCESSOR
 
 @Component({
   standalone: true,
   selector: 'app-input',
   imports: [CommonModule, FormsModule],
-  templateUrl: './input-component.component.html',
+  template: `
+    <div class="mb-3">
+      <label *ngIf="label" [for]="id" class="form-label">{{ label }}</label>
+      <input
+        [id]="id"
+        [type]="type"
+        class="form-control"
+        [(ngModel)]="value" [placeholder]="placeholder"
+        [name]="name"
+        (blur)="onTouched()" (ngModelChange)="onChange(value)" />
+    </div>
+  `,
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
@@ -17,44 +26,34 @@ import { FormsModule, ControlValueAccessor, NG_VALUE_ACCESSOR, NgModel } from '@
     },
   ],
 })
-export class InputComponent implements ControlValueAccessor, OnChanges {
+export class InputComponent implements ControlValueAccessor {
   @Input() id = '';
   @Input() name = '';
   @Input() label = '';
-  @Input() type: string = 'text';
+  @Input() type = 'text';
   @Input() placeholder = '';
-  @Input() min?: number;
-  @Input() required = false;
-  @Input() minlength?: number;
-  @Input() maxlength?: number;
-  @Input() formResetTrigger: boolean = false;
 
-  @ViewChild(NgModel) model!: NgModel;
-  value: any;
+  value: any; // El valor interno del control
   onChange: any = () => {};
   onTouched: any = () => {};
 
-  writeValue(value: any): void { this.value = value; }
-  registerOnChange(fn: any): void { this.onChange = fn; }
-  registerOnTouched(fn: any): void { this.onTouched = fn; }
+  // Método para escribir el valor desde el padre
+  writeValue(value: any): void {
+    this.value = value;
+  }
 
-  ngOnChanges(changes: SimpleChanges): void {
-    if (changes['formResetTrigger'] && this.model?.control) {
-      this.model.control.markAsPristine();
-      this.model.control.markAsUntouched();
-    }
+  // Método para registrar la función que se llamará cuando el valor cambie
+  registerOnChange(fn: any): void {
+    this.onChange = fn;
   }
-  ngAfterViewInit(): void {
-    // Forzar actualización del estado del validador
-    setTimeout(() => {
-      if (this.model?.control) {
-        this.model.control.updateValueAndValidity();
-      }
-    }, 0);
+
+  // Método para registrar la función que se llamará cuando el control sea tocado
+  registerOnTouched(fn: any): void {
+    this.onTouched = fn;
   }
-  blockNegativeInput(event: KeyboardEvent) {
-    if (event.key === '-' ) {
-      event.preventDefault();
-    }
+
+  // Método para deshabilitar el control (opcional)
+  setDisabledState?(isDisabled: boolean): void {
+   
   }
 }

@@ -6,7 +6,16 @@ import { CompetenciaFormComponent } from '../../organisms/competencia-form/compe
   standalone: true,
   selector: 'app-crear-competencia-template',
   imports: [CommonModule, CompetenciaFormComponent],
-  templateUrl:'./crear-competencia-template.component.html'
+  template: `
+    <div class="container mt-4">
+      <h2 class="mb-3">Gestionar Competencias y Resultados de Aprendizaje</h2>
+      <app-competencia-form
+        [mostrarVinculacion]="mostrarVinculacion"
+        [competenciasPrograma]="competenciasPrograma"
+        (crear)="emitirCompetencia($event)"
+      ></app-competencia-form>
+    </div>
+  `,
 })
 export class CrearCompetenciaTemplateComponent {
   @Output() crear = new EventEmitter<any>();
