@@ -53,7 +53,7 @@ export class InputComponent implements ControlValueAccessor, OnChanges {
     }, 0);
   }
   blockNegativeInput(event: KeyboardEvent) {
-    if (event.key === '-' || event.key === 'e') {
+    if (event.key === '-' ) {
       event.preventDefault();
     }
   }
