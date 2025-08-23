@@ -9,7 +9,9 @@ import { RouterModule } from '@angular/router'; // Asegúrate de importar Router
   imports: [CommonModule, RouterModule], // Añade RouterModule
   template: `
     <div class="container mt-4">
-      <h2 class="mb-3">{{ titulo }}</h2>
+      <div class="title-header">
+        <h2 class="mb-3">{{ titulo }}</h2>
+      </div>
       <button class="btn btn-primary mb-3" [routerLink]="routerLinkCrear">
         Crear Nueva Competencia
       </button>

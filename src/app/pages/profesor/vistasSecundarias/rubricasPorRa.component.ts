@@ -8,7 +8,9 @@ import { FormsModule } from '@angular/forms';
   imports: [CommonModule, FormsModule],
   template: `
     <div class="container mt-4">
-      <h2>Rubricas de       </h2>
+      <div class="title-header">
+        <h2>Rubricas</h2>
+      </div>
 
       <button class="btn btn-primary mb-3" (click)="agregarRubrica()">
         Añadir Rúbrica

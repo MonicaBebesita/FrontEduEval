@@ -10,7 +10,9 @@ import { Asignatura } from '../../../modelos/asignatura';
   imports: [CommonModule, AsignaturasListComponent],
   template: `
     <div class="container mt-4">
-      <h2 class="mb-4">{{ titulo }}</h2>
+      <div class="title-header">
+        <h2 class="mb-4">{{ titulo }}</h2>
+      </div>
       <app-asignaturas-list
         [asignaturas]="asignaturas"
         [rutaDestinoBase]="rutaDestinoBase"

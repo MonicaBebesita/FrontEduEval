@@ -1,0 +1,73 @@
+/* --- Estilo principal de la Sidebar --- */
+.sidebar-custom-blue {
+  /* Un gradiente azul oscuro y profesional. Puedes cambiar los colores a tu gusto */
+  background: linear-gradient(180deg, #1e3a8a 0%, #172554 100%);
+  color: #e0e0e0; /* Color de texto por defecto, un blanco suave */
+}
+
+/* --- Título y Selector de Rol --- */
+.sidebar-custom-blue .fs-3 {
+  color: #60a5fa; /* Un azul más brillante y atractivo para el ícono del rol */
+}
+
+.sidebar-custom-blue .form-select {
+  background-color: rgba(255, 255, 255, 0.1);
+  color: white;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  text-transform: capitalize;
+  /* Ícono de flecha personalizado para el selector */
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23ffffff' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m2 5 6 6 6-6'/%3e%3c/svg%3e");
+}
+
+.sidebar-custom-blue .form-select:focus {
+  border-color: #60a5fa;
+  outline: 0;
+  box-shadow: 0 0 0 0.25rem rgba(96, 165, 250, 0.25);
+}
+
+.sidebar-custom-blue .form-select option {
+  background-color: #172554; /* Fondo oscuro para las opciones */
+  color: white;
+}
+
+/* --- Separador --- */
+.sidebar-custom-blue hr {
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+/* --- Items del Menú (Enlaces) --- */
+.sidebar-custom-blue .nav-link {
+  color: #d1d5db; /* Un gris claro para los enlaces inactivos */
+  padding: 0.75rem 1rem;
+  margin-bottom: 0.25rem;
+  border-radius: 0.375rem; /* Bordes redondeados */
+  transition: all 0.2s ease-in-out;
+  font-weight: 500; /* Texto un poco más grueso para legibilidad */
+}
+
+/* Efecto al pasar el mouse sobre un enlace */
+.sidebar-custom-blue .nav-link:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  color: #ffffff; /* Blanco puro al pasar el mouse */
+}
+
+/* Estilo para el enlace activo (simplificado para ser más robusto) */
+.sidebar-custom-blue .nav-link.active {
+  background-color: #ffffff;
+  color: #1e3a8a; /* El color azul oscuro del fondo */
+  font-weight: 600; /* Texto en negrita para el ítem activo */
+}
+
+/* --- Botón de Cerrar Sesión --- */
+.sidebar-custom-blue .btn {
+  background-color: transparent;
+  color: #d1d5db;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  font-weight: 500;
+}
+
+.sidebar-custom-blue .btn-light:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  border-color: #ffffff;
+  color: #ffffff;
+}

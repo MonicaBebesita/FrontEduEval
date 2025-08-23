@@ -8,7 +8,9 @@ import { ActivatedRoute, RouterLink } from '@angular/router';
   imports: [CommonModule, RouterLink],
   template: `
     <div class="container mt-4">
-      <h2>Evaluaciones de la Asignatura: {{ asignaturaId }}</h2>
+      <div class="title-header">
+        <h2>Evaluaciones de la Asignatura: {{ asignaturaId }}</h2>
+      </div>
 
       <div *ngFor="let grupo of raAgrupados" class="mb-4">
         <div

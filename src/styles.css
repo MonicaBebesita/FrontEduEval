@@ -1,1 +1,22 @@
 /* You can add global styles to this file, and also import other style files */
+
+/*
+  Clase global para los encabezados de página.
+  Crea una franja azul con texto blanco, similar a la sidebar.
+*/
+.title-header {
+  /* Usamos el mismo gradiente que en la sidebar para consistencia */
+  background: linear-gradient(180deg, #1e3a8a 0%, #172554 100%);
+  color: #ffffff;
+  padding: 1.5rem 2rem; /* Espaciado generoso para que respire */
+  margin-bottom: 2rem; /* Espacio entre el título y el contenido */
+  border-radius: 0.5rem; /* Bordes redondeados para un look moderno */
+  box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+}
+
+.title-header h1 {
+  color: #ffffff; /* Aseguramos que el encabezado sea blanco */
+  margin: 0; /* Quitamos márgenes por defecto del h1 */
+  font-size: 1.75rem; /* Un tamaño de fuente prominente */
+  font-weight: 600;
+}

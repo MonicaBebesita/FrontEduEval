@@ -68,7 +68,6 @@ export const routes: Routes = [
         ],
       },
       {
-        
         path: 'dashboard',
         component: DashboardComponent,
       },
@@ -86,6 +85,5 @@ export const routes: Routes = [
   },
 
   // Default y not found
-  { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
   { path: '**', redirectTo: 'dashboard' },
 ];

@@ -10,11 +10,39 @@ type MenuItem = {
   route: string;
 };
 
+const menuConfig: { [key: string]: { icon: string; items: MenuItem[] } } = {
+  coordinador: {
+    icon: 'bi bi-diagram-3',
+    items: [
+      {
+        label: 'Competencias y Resultados de Aprendizaje (CP/RP)',
+        route: '/programa',
+      },
+      {
+        label: 'Competencias por Asignatura (CA)',
+        route: '/programa/CAasignaturas',
+      },
+    ],
+  },
+  profesor: {
+    icon: 'bi bi-person-workspace',
+    items: [
+      { label: 'RA y Rúbricas', route: '/profesor' },
+      { label: 'Evaluaciones', route: '/profesor/EvalAsignatura' },
+    ],
+  },
+  evaluador: {
+    icon: 'bi bi-clipboard-data',
+    items: [{ label: 'Evaluaciones', route: '/profesor/EvalAsignatura' }],
+  },
+};
+
 @Component({
   selector: 'app-sidebar',
   standalone: true,
   imports: [CommonModule, RouterModule, FormsModule],
   templateUrl: './sidebar.component.html',
+  styleUrls: ['./sidebar.component.css'],
 })
 export class SidebarComponent implements OnInit {
   private auth = inject(AuthService);
@@ -74,38 +102,14 @@ export class SidebarComponent implements OnInit {
 
   configureMenu(role: string) {
     console.log('[SidebarComponent] Configurando menú para el rol:', role);
-    switch (role) {
-      case 'coordinador':
-        this.icon = 'bi bi-diagram-3';
-        this.menuItems = [
-          {
-            label: 'Competencias y Resultados de Aprendizaje (CP/RP)',
-            route: '/programa',
-          },
-
-          {
-            label: 'Competencias por Asignatura (CA)',
-            route: '/programa/CAasignaturas',
-          },
-        ];
-        break;
-      case 'profesor':
-        this.icon = 'bi bi-person-workspace';
-        this.menuItems = [
-          { label: 'RA y Rúbricas', route: '/profesor' },
-          { label: 'Evaluaciones', route: '/profesor/EvalAsignatura' },
-        ];
-        break;
-      case 'evaluador':
-        this.icon = 'bi bi-clipboard-data';
-        this.menuItems = [
-          { label: 'Evaluaciones', route: '/profesor/EvalAsignatura' },
-        ];
-        break;
-      default:
-        this.icon = 'bi bi-question-circle';
-        this.menuItems = [];
-        break;
+    // Convertimos el rol a minúsculas para evitar problemas de case-sensitivity
+    const config = menuConfig[role.toLowerCase()];
+    if (config) {
+      this.icon = config.icon;
+      this.menuItems = config.items;
+    } else {
+      this.icon = 'bi bi-question-circle';
+      this.menuItems = [];
     }
     console.log('[SidebarComponent] Menu items configurados:', this.menuItems);
   }

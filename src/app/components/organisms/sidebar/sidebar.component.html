@@ -5,13 +5,13 @@
 
 <!-- Sidebar principal -->
 <div 
-  class="d-flex flex-column flex-shrink-0 p-3 bg-light vh-100 shadow-sm sidebar-container"
+  class="d-flex flex-column flex-shrink-0 p-3 vh-100 shadow-sm sidebar-container sidebar-custom-blue"
   [class.sidebar-mobile-active]="sidebarActive"
   style="width: 250px"
 >
-  <div class="d-flex align-items-center mb-3 text-dark fs-5">
+  <div class="d-flex align-items-center mb-3 text-white fs-5">
     <i [class]="icon + ' me-2 fs-3 text-primary'"></i>
-    <span class="fw-bold text-capitalize me-2">Rol:</span>
+    <span class="fw-bold me-2">Rol:</span>
 
     <select
       *ngIf="userRoles.length > 0"
@@ -25,12 +25,14 @@
 
   <hr />
 
+  
   <ul class="nav nav-pills flex-column mb-auto">
     <li *ngFor="let item of menuItems" class="nav-item">
       <a
         [routerLink]="item.route"
         routerLinkActive="active"
-        class="nav-link link-dark"
+        [routerLinkActiveOptions]="{ exact: true }"
+        class="nav-link"
         (click)="closeSidebarOnMobile()"
       >
         {{ item.label }}
@@ -39,7 +41,7 @@
   </ul>
 
   <hr />
-  <button class="btn btn-outline-secondary w-100" (click)="logout()">
+  <button class="btn btn-light w-100" (click)="logout()">
     Cerrar sesión
   </button>
 </div>

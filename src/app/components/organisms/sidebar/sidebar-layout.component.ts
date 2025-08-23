@@ -4,6 +4,7 @@ import { RouterOutlet } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { SidebarComponent } from './sidebar.component';
 
+
 @Component({
   selector: 'app-sidebar-layout',
   standalone: true,
